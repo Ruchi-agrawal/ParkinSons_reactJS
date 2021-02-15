@@ -39,3 +39,15 @@ export const getCountries = async () => {
         return data
     }
 }
+
+
+export const getPosts = async () => {
+    const config = {
+        headers: { 'content-type': 'application/json' }
+    }
+    let response = await axios.get(API_URL.getPosts, config)
+    if (response.data.success) {
+        const data = response.data.data
+        return data
+    }
+}

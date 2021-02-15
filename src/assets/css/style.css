@@ -448,6 +448,14 @@ p.allDuod{
     width: 40px;
     cursor: pointer;
 }
+
+.counntryFlagShow{
+    width: 40px !important;
+    cursor: pointer;
+    border-radius: 12px !important;
+    height: 30px;
+    border: solid black 2px;
+}
 .cntryEye img {
     width: 34px;
     cursor: pointer;
@@ -513,4 +521,8 @@ a.shortArow img{
     width: 442px;
     margin-top: -45px;
     cursor: pointer;
+}
+.ErrorMssg{
+    color: rgb(236, 63, 63);
+    font-size: 15px !important;
 }

@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import { getPosts } from "api/index"
+class Index extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      noOfPosts:null
+    }
+  }
 
-class Index extends Component{
-  render(){
-    return(
+  componentDidMount(){
+    this.getNoOfPosts()
+  }
+
+  getNoOfPosts=async()=>{
+    let response= await getPosts()
+    if(response){
+      this.setState({noOfPosts:response.length})
+    }
+  }
+  render() {
+    let {noOfPosts}=this.state
+    return (
       <div className="webFooter">
         <Container>
           <Row>
@@ -17,7 +35,7 @@ class Index extends Component{
               </a>
             </Col>
             <Col sm="5" className="footerMid">
-              <p><a>120 posts</a></p>
+              <p><a>{noOfPosts} Posts</a></p>
               <p className="allDuod"><span>ALL DUOD XXXXXX</span></p>
             </Col>
             <Col sm="3" className="foterAbbvie">

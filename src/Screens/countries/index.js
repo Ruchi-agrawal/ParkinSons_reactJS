@@ -5,6 +5,7 @@ import Footer from '../footer/index';
 import { getCountries } from "api/index"
 import { countries } from 'country-data';
 import { sortFunction } from "Screens/Component/sort"
+import Flag from 'react-world-flags'
 class Index extends Component {
 
     constructor(props) {
@@ -19,18 +20,16 @@ class Index extends Component {
     }
 
     getCountry = async () => {
-        // console.log("OPOPOPO", countries)
         let countryList = []
         let response = await getCountries()
         response.map(code => {
-
             let countryData = {
                 name: countries[code?._id].name,
-                count: code?.count
+                count: code?.count,
+                code: code?._id
             }
             countryList.push(countryData)
         })
-        console.log("countryList", countryList);
         this.setState({ countryList })
     }
 
@@ -107,7 +106,12 @@ class Index extends Component {
                                             <div>
                                                 <Row className="cntryRow">
                                                     <Col lg="5" md="5" sm="5" className="cntryFlag">
-                                                        <a><img src={require('../../assets/images/be.png')} alt="" title="" /><span>{country?.name}</span></a></Col>
+                                                        <a>
+                                                            {/* <img src={require('../../assets/images/be.png')} alt="" title="" /> */}
+                                                            <Flag code={country?.code} className="counntryFlagShow"/>
+                                                            <span>{country?.name}</span>
+                                                        </a>
+                                                    </Col>
                                                     <Col lg="3" md="3" sm="3" className="cntryUnit"><p>{country?.count}</p></Col>
                                                     <Col lg="4" md="4" sm="4" className="cntryEye cntryEyeActv"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
                                                 </Row>
@@ -115,6 +119,7 @@ class Index extends Component {
 
                                             </div>
                                         ))}
+                                        
 
                                         {/* <Row className="cntryRow">
                                         <Col lg="5" md="5" sm="5" className="cntryFlag">
