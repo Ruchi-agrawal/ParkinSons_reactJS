@@ -2,9 +2,39 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import Header from '../header/index';
 import Footer from '../footer/index';
-
+import { getCountries } from "api/index"
+import { countries } from 'country-data';
+import { sortFunction } from "Screens/Component/sort"
+import Flag from 'react-world-flags'
 class Index extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            countryList: [],
+        };
+    }
+
+    componentDidMount() {
+        this.getCountry()
+    }
+
+    getCountry = async () => {
+        let countryList = []
+        let response = await getCountries()
+        response.map(code => {
+            let countryData = {
+                name: countries[code?._id].name,
+                count: code?.count,
+                code: code?._id
+            }
+            countryList.push(countryData)
+        })
+        this.setState({ countryList })
+    }
+
     render() {
+        let { countryList } = this.state
         return (
             <div>
 
@@ -26,8 +56,8 @@ class Index extends Component {
                                     <div><label>Countries</label></div>
                                     <div>
                                         <p>Here you can see all the countries taking part in this event and how many
-                                           messages they have posted. You can also select which countries you would 
-                                           like to the front page of this site by using the ‘eye’ symbol.
+                                        messages they have posted. You can also select which countries you would
+                                        like to the front page of this site by using the ‘eye’ symbol.
                                         </p>
                                     </div>
                                 </div>
@@ -36,10 +66,10 @@ class Index extends Component {
 
                             <Col lg="5" md="7">
                                 <div className="comonMidSec">
-                                       
+
                                     <Row className="contryHead">
                                         <Col lg="5" md="5" sm="5" xs={5}>
-                                            <p>Country 
+                                            <p>Country
                                                 <a className="shortArow"><img src={require('../../assets/images/toprow.png')} alt="" title="" />
                                                     <img src={require('../../assets/images/toprow.png')} alt="" title="" className="shortArowRght" />
                                                 </a>
@@ -55,90 +85,103 @@ class Index extends Component {
                                         <Col lg="4" md="4" sm="4" xs={4} className="contryVisblty"><p>Visability</p></Col>
                                     </Row>
                                     <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-                                    
-                                  <div className="cntryData">
-                                    <Row className="cntryRow">
-                                        <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                            <a><img src={require('../../assets/images/be.png')} alt="" title="" /><span>Belgium</span></a></Col>
-                                        <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>20</p></Col>
-                                        <Col lg="4" md="4" sm="4" xs={4} className="cntryEye cntryEyeActv"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                    </Row>
-                                    <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                    <Row className="cntryRow">
-                                        <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                            <a><img src={require('../../assets/images/de.png')} alt="" title="" /><span>Denmark</span></a></Col>
-                                        <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>12</p></Col>
-                                        <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                    </Row>
-                                    <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                    <Row className="cntryRow">
-                                        <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                            <a><img src={require('../../assets/images/fi.png')} alt="" title="" /><span>Finland</span></a></Col>
-                                        <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>16</p></Col>
-                                        <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                    </Row>
-                                    <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                    <Row className="cntryRow">
-                                        <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                            <a><img src={require('../../assets/images/fr.png')} alt="" title="" /><span>France</span></a></Col>
-                                        <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>8</p></Col>
-                                        <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                    </Row>
-                                    <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                    <Row className="cntryRow">
-                                        <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                            <a><img src={require('../../assets/images/ge.png')} alt="" title="" /><span>Germany</span></a></Col>
-                                        <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>30</p></Col>
-                                        <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                    </Row>
-                                    <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                    <Row className="cntryRow">
-                                        <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                            <a><img src={require('../../assets/images/it.png')} alt="" title="" /><span>Italy</span></a></Col>
-                                        <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>9</p></Col>
-                                        <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                    </Row>
-                                    <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-                                    
-                                    <Row className="cntryRow">
-                                        <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                            <a><img src={require('../../assets/images/fr.png')} alt="" title="" /><span>France</span></a></Col>
-                                        <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>8</p></Col>
-                                        <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                    </Row>
-                                    <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                    <Row className="cntryRow">
-                                        <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                            <a><img src={require('../../assets/images/ge.png')} alt="" title="" /><span>Germany</span></a></Col>
-                                        <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>30</p></Col>
-                                        <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                    </Row>
-                                    <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
 
 
-                                  </div>
+                                    <div className="cntryData">
+                                        {countryList && countryList.length && countryList.map(country => (
+                                            <div>
+                                                <Row className="cntryRow">
+                                                    <Col lg="5" md="5" sm="5" className="cntryFlag">
+                                                        <a>
+                                                            {/* <img src={require('../../assets/images/be.png')} alt="" title="" /> */}
+                                                            <Flag code={country?.code} className="counntryFlagShow" />
+                                                            <span>{country?.name}</span>
+                                                        </a>
+                                                    </Col>
+                                                    <Col lg="3" md="3" sm="3" className="cntryUnit"><p>{country?.count}</p></Col>
+                                                    <Col lg="4" md="4" sm="4" className="cntryEye cntryEyeActv"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
+                                                </Row>
+                                                <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
 
+                                            </div>
+                                        ))}
+
+
+                                        {/* <Row className="cntryRow">
+                                                <Col lg="5" md="5" sm="5" className="cntryFlag">
+                                                    <a><img src={require('../../assets/images/de.png')} alt="" title="" /><span>Denmark</span></a></Col>
+                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>12</p></Col>
+                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
+                                            </Row>
+                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
+
+                                            <Row className="cntryRow">
+                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
+                                                    <a><img src={require('../../assets/images/fi.png')} alt="" title="" /><span>Finland</span></a></Col>
+                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>16</p></Col>
+                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
+                                            </Row>
+                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
+
+                                            <Row className="cntryRow">
+                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
+                                                    <a><img src={require('../../assets/images/fr.png')} alt="" title="" /><span>France</span></a></Col>
+                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>8</p></Col>
+                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
+                                            </Row>
+                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
+
+                                            <Row className="cntryRow">
+                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
+                                                    <a><img src={require('../../assets/images/ge.png')} alt="" title="" /><span>Germany</span></a></Col>
+                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>30</p></Col>
+                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
+                                            </Row>
+                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
+
+                                            <Row className="cntryRow">
+                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
+                                                    <a><img src={require('../../assets/images/it.png')} alt="" title="" /><span>Italy</span></a></Col>
+                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>9</p></Col>
+                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
+                                            </Row>
+                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
+
+                                            <Row className="cntryRow">
+                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
+                                                    <a><img src={require('../../assets/images/fr.png')} alt="" title="" /><span>France</span></a></Col>
+                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>8</p></Col>
+                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
+                                            </Row>
+                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
+
+                                            <Row className="cntryRow">
+                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
+                                                    <a><img src={require('../../assets/images/ge.png')} alt="" title="" /><span>Germany</span></a></Col>
+                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>30</p></Col>
+                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
+                                            </Row>
+                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div> */}
+
+
+                                    </div>
                                 </div>
                             </Col>
 
-                            <Col lg="3"><div></div></Col>
+                        <Col lg="3"><div></div></Col>
                         </Row>
                     </Container>
-                </div>
-                {/* end of mid section */}
-
-                {/* Common Footer */}
-                <Footer />
-                {/* End of Common Footer */}
-
             </div>
+                {/* end of mid section */ }
+
+        {/* Common Footer */ }
+        <Footer />
+        {/* End of Common Footer */ }
+
+            </div >
         );
     }
 }
+
+
 export default Index;

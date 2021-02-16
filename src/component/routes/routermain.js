@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import Post from "./../../Screens/post";
-import Holding from "./../../Screens/holding/index";
-import About from "./../../Screens/about/index";
-import Countries from "./../../Screens/countries/index";
-import Login from "./../../Screens/login/index";
-import Messages from "./../../Screens/messages/index";
+import Post from "Screens/post";
+import Holding from "Screens/holding/index";
+import About from "Screens/about/index";
+import Countries from "Screens/countries/index";
+import Login from "Screens/login/index";
+import Messages from "Screens/messages/index";
 
 class Routermain extends Component {
     render() {
