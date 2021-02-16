@@ -27,10 +27,15 @@ html {
  }
 }
 @media (min-width: 992px){
-.homeCntnt .col-lg-4{
+ .homeCntnt .col-lg-4{
     flex: 0 0 30.333333% !important;
     max-width: 30.333333% !important;
  }
+}
+@media (max-width: 992px){
+  .comonMidSec{
+    margin-bottom: 130px;
+  }
 }
 /* .menubanner_bg{
     background-image: url('../images/logo.png');
@@ -57,8 +62,9 @@ html {
 }
 .footerMid{
     background: #00a651;
-    min-height: 64px;
+    min-height: 66px;
     padding-top: 16px;
+    position: relative;
 }
 .foterAbbvie{
     text-align: right;
@@ -122,7 +128,7 @@ p.allDuod{
 .webLogo img{
     position: absolute;
     left: 0;
-    top: 2.4px;
+    top: 1px;
     width: 488px;
     z-index: 999;
     cursor: pointer;
@@ -166,7 +172,7 @@ p.allDuod{
     /* background-image: url('../images/formbg.jpg'); */
     background: linear-gradient( 90deg, rgba(46,46,46,1) 43%, rgba(65,63,64,1) 100%);
     background-size: cover;
-    min-height: 557px;
+    min-height: 92vh;
     background-repeat: no-repeat;
     border-radius: 38px 0px 0px 0px;
     padding: 70px 30px 14px 53px;
@@ -445,16 +451,8 @@ p.allDuod{
     align-items: center;
 }
 .cntryFlag img {
-    width: 40px;
+    width: 32px;
     cursor: pointer;
-}
-
-.counntryFlagShow{
-    width: 40px !important;
-    cursor: pointer;
-    border-radius: 12px !important;
-    height: 30px;
-    border: solid black 2px;
 }
 .cntryEye img {
     width: 34px;
@@ -498,7 +496,7 @@ a.shortArow img{
     transform: rotateZ(180deg);
 }
 .cntryData{
-    height: 354px;
+    height: 425px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -509,8 +507,7 @@ a.shortArow img{
     width: 4px;
 }
 .customLogin{
-    /* background: #d91a5d; */
-    text-align: center;
+    background: #d91a5d;
     min-height: 100vh;
     justify-content: center;
     align-items: center;
@@ -518,11 +515,217 @@ a.shortArow img{
     flex-direction: column;
 }
 .customLogin img{
-    width: 442px;
     margin-top: -45px;
     cursor: pointer;
+    width: 100%;
 }
-.ErrorMssg{
-    color: rgb(236, 63, 63);
-    font-size: 15px !important;
+.loginIner label{
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 400;
+}
+.loginForm{
+    padding: 0px 24px;
+    margin-top: 21px;
+}
+.loginForm input{
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background-color: #fff;
+    min-height: 40px;
+}
+.loginForm .form-control:focus{
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+.loginForm button{
+    background: transparent !important;
+    border: 1px solid #ffffff !important;
+    color: #ffffff;
+    padding: 8px 33px;
+    border-radius: 6px;
+}
+.loginFormBtn{
+    text-align: right;
+}
+.mobLogo{
+    display: none;
+}
+.menubanner_bg .navbar-light .navbar-toggler-icon{
+    background-image: url('../images/MobMenu.png') !important;
+    background-size: contain;
+    min-width: 27px;
+}
+.menubanner_bg .navbar-light .navbar-toggler{
+    color: transparent !important;
+    border-color: transparent !important;
+    border: none !important;
+}
+.mobAbbvie {
+    text-align: right;
+}
+.mobileFtr {
+    display: none;
+}
+@media (max-width: 575px){
+    .msgBoard, .aboutLeft {
+      margin-top: 42px !important;
+      margin-bottom: 38px !important;
+    }
+    .customMenu li.nav-item {
+      margin-right: 0px !important;
+    }
+    .customMenu a.nav-link {
+      font-size: 13px !important;
+      padding: 2px 0px !important;
+    }
+    .foterAbbvie {
+        padding-right: 15px;
+    }
+    .websiteFtr {
+        display: none;
+    }
+    .mobileFtr {
+        display: block !important;
+    }
+    .footerMid {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        min-height: auto;
+    }
+    .foterLft {
+        padding-top: 12px;
+        padding-bottom: 4px;
+    }
+    .brwsFindUpr{
+        display: block;
+    }
+    .mobAbbvie img{
+        width: 100%;
+    }
+    .brwsFind, .shrBrows{
+        width: 100% !important;
+    }
+    a.shortArow img {
+        height: 8px;
+    }
+    .contryHead p{
+        font-size: 12px;
+    }
+    a.shortArow{
+        display: grid;
+    }
+    .cntryFlag img{
+        width: 25px;
+    }
+    .cntryEye img{
+        width: 24px;
+    }
+  }
+@media (max-width: 767px){
+ .headerSpc{
+    min-height: auto !important;
+ }
+ .comonMidSec{
+    padding: 35px 20px 20px 20px !important;
+    min-height: initial !important;
+  }
+  .webLogo{
+    display: none;
+  }
+ .mobLogo{
+    display: block !important;
+  }
+ .mobLogo img{
+    width: 100%;
+  }
+  a.footerDrm img {
+    width: 42px;
+    margin-right: 7px;
+  }
+  a.nuroScience{
+    padding-left: 0px !important;
+    line-height: initial;
+    margin-right: 10px;
+    padding-right: 10px;
+    min-height: 38px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  a.footerDrmTxt span{
+    font-size: 11px;
+  }
+  .aboutLeft{
+    width: auto !important;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1340px){
+    .webLogo img{
+      width: 100%;
+    }
+}
+@media screen and (min-width: 1092px) and (max-width: 1300px){
+    .webLogo img{
+      top: 8px;
+    }
+}
+@media screen and (min-width: 991px) and (max-width: 1092px){
+    .webLogo img{
+        top: 15px;
+      }
+}
+@media screen and (min-width: 868px) and (max-width: 992px){
+    .webLogo img{
+      top: 10px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 867px){
+    .webLogo img{
+      top: 16px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1200px){
+    .comonMidSec{
+        padding: 70px 20px 14px 20px !important;
+    }
+    .contryHead p{
+        font-size: 13px !important;
+    }
+}
+.internalUse p{
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    display: block;
+    margin-bottom: 10px;
+}
+a.footerMsg img{
+    height: 100px !important;
+    width: auto !important;
+}
+a.footerMsg{
+    position: absolute;
+    right: 0px;
+    bottom: 14px;
+}
+.foterAbbvie a.footerMsg{
+    bottom: 40px;
+}
+.msgsContent .container{
+    max-width: 100%;
+}
+.msgsContent .col{
+    padding: 0px;
+}
+.msgsGroup{
+    display: inline-block;
+}
+.msgTxts{
+    font-size: 20px;
+    line-height: 30px;
+    font-family: 'Open Sans';
+    font-weight: 500;
 }
