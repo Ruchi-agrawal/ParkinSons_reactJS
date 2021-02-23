@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import Header from '../header/index';
 import Footer from '../footer/index';
 import { getCountries } from "api/index"
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { countries } from 'country-data';
 import { sortFunction } from "Screens/Component/sort"
 import Flag from 'react-world-flags'
@@ -12,6 +13,7 @@ class Index extends Component {
         super(props);
         this.state = {
             countryList: [],
+            nodata: true
         };
     }
 
@@ -30,11 +32,25 @@ class Index extends Component {
             }
             countryList.push(countryData)
         })
-        this.setState({ countryList })
+        this.setState({ countryList, nodata: false })
+    }
+
+    countryPostSort = async (event, order) => {
+        let { countryList } = this.state;
+        let sorted = await sortFunction(countryList, event, order)
+        this.setState({ countryList: sorted })
+    }
+
+    gotoMessage = (country) => {
+        this.props.history.push({
+            pathname: "/messages",
+            state: country
+        })
     }
 
     render() {
-        let { countryList } = this.state
+        let { countryList, nodata } = this.state
+
         return (
             <div>
 
@@ -70,15 +86,17 @@ class Index extends Component {
                                     <Row className="contryHead">
                                         <Col lg="5" md="5" sm="5" xs={5}>
                                             <p>Country
-                                                <a className="shortArow"><img src={require('../../assets/images/toprow.png')} alt="" title="" />
-                                                    <img src={require('../../assets/images/toprow.png')} alt="" title="" className="shortArowRght" />
+                                                <a className="shortArow" >
+                                                    <img src={require('../../assets/images/toprow.png')} onClick={() => this.countryPostSort("name", "ascending")} alt="" title="" />
+                                                    <img src={require('../../assets/images/toprow.png')} onClick={() => this.countryPostSort("name", "descending")} alt="" title="" className="shortArowRght" />
                                                 </a>
                                             </p>
                                         </Col>
                                         <Col lg="3" md="3" sm="3" xs={3} className="contryPost">
                                             <p>Posts
-                                                <a className="shortArow"><img src={require('../../assets/images/toprow.png')} alt="" title="" />
-                                                    <img src={require('../../assets/images/toprow.png')} alt="" title="" className="shortArowRght" />
+                                                <a className="shortArow" >
+                                                    <img src={require('../../assets/images/toprow.png')} onClick={() => this.countryPostSort("count", "ascending")} alt="" title="" />
+                                                    <img src={require('../../assets/images/toprow.png')} onClick={() => this.countryPostSort("count", "descending")} alt="" title="" className="shortArowRght" />
                                                 </a>
                                             </p>
                                         </Col>
@@ -88,6 +106,7 @@ class Index extends Component {
 
 
                                     <div className="cntryData">
+                                        {nodata && <div className="circularProgress"> <CircularProgress className="w-3 mr-3 mb-3 progress-primary" color="secondary" thickness={3} /></div>}
                                         {countryList && countryList.length && countryList.map(country => (
                                             <div>
                                                 <Row className="cntryRow">
@@ -99,7 +118,11 @@ class Index extends Component {
                                                         </a>
                                                     </Col>
                                                     <Col lg="3" md="3" sm="3" className="cntryUnit"><p>{country?.count}</p></Col>
-                                                    <Col lg="4" md="4" sm="4" className="cntryEye cntryEyeActv"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
+                                                    <Col lg="4" md="4" sm="4" className="cntryEye cntryEyeActv">
+                                                        <a>
+                                                            <img src={require('../../assets/images/eye.png')} onClick={() => this.gotoMessage(country)} alt="" title="" />
+                                                        </a>
+                                                    </Col>
                                                 </Row>
                                                 <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
 
@@ -168,15 +191,15 @@ class Index extends Component {
                                 </div>
                             </Col>
 
-                        <Col lg="3"><div></div></Col>
+                            <Col lg="3"><div></div></Col>
                         </Row>
                     </Container>
-            </div>
-                {/* end of mid section */ }
+                </div>
+                {/* end of mid section */}
 
-        {/* Common Footer */ }
-        <Footer />
-        {/* End of Common Footer */ }
+                {/* Common Footer */}
+                <Footer />
+                {/* End of Common Footer */}
 
             </div >
         );

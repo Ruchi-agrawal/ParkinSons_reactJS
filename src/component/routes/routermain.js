@@ -1,23 +1,26 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
 import Post from "Screens/post";
 import Holding from "Screens/holding/index";
 import About from "Screens/about/index";
 import Countries from "Screens/countries/index";
 import Login from "Screens/login/index";
 import Messages from "Screens/messages/index";
-
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 class Routermain extends Component {
     render() {
         return (
-            <Switch>
-                <Route exact path="/" component={Post} />
-                <Route exact path="/holding" component={Holding} />
-                <Route exact path="/about" component={About} />
-                <Route exact path="/countries" component={Countries} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/messages" component={Messages} />
-            </Switch>
+            <Router basename={'/'}>
+                <div>
+                    <Switch>
+                        <Route exact path="/" render={(props) => <Holding {...props} />} />
+                        <Route exact path="/login" render={(props) => <Login {...props} />} />
+                        <Route exact path="/about" render={(props) => <About {...props} />} />
+                        <Route exact path="/countries" render={(props) => <Countries {...props} />} />
+                        <Route exact path="/add_posts" render={(props) => <Post {...props} />} />
+                        <Route exact path="/messages" render={(props) => <Messages {...props} />} />
+                    </Switch>
+                </div>
+            </Router>
         )
     }
 }

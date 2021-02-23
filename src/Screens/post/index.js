@@ -14,11 +14,16 @@ class Index extends Component {
     this.state = {
       country_code: 'IN',
       postData: {},
-      isFileSelected: false
+      isFileSelected: false,
+      msgChar: null,
+      messageLength :0,
+      captionLength :0
     };
     this.uploadFile = this.uploadFile.bind(this);
   }
   componentDidMount() {
+    let { postData } = this.state
+    postData["userEmail"] = localStorage.getItem("userEmail")
   }
 
   onSelectFlag = (countryCode) => {
@@ -28,9 +33,23 @@ class Index extends Component {
   }
 
   handleChange = (event) => {
-    console.log(event.target.name, "000", this.state.postData)
-    let { postData } = this.state
-    postData[event.target.name] = event.target.value
+    let { postData, messageLength, captionLength } = this.state
+    let target = event.target
+    if (target?.name == "message") {
+      messageLength = target?.value?.length
+      if(messageLength <= 140){
+        postData[target.name] = target.value
+        this.setState({messageLength, postData})
+      }
+    } else if (target?.name == "caption") {
+      captionLength = target?.value?.length
+      if(captionLength <= 40){
+        postData[target.name] = target.value
+        this.setState({captionLength, postData})
+      }
+    }else{
+      postData[target.name] = target.value
+    }
   }
 
   uploadFile = async (e) => {
@@ -38,7 +57,7 @@ class Index extends Component {
     let { postData } = this.state
     let response = await fileUpload(e)
     if (response) {
-      postData["imageUrl"] = response.path
+      postData["imageUrl"] = response?.filename
       this.setState({ postData })
     }
 
@@ -46,6 +65,8 @@ class Index extends Component {
 
   handleSubmit = async () => {
     let { postData } = this.state
+    console.log("POstdata", postData)
+    console.log("post Data", postData)
     if (!postData.userName && postData.userName == (null || undefined)) {
       this.setState({ blankName: "User Name is Blank." })
     } else if (!postData.countryCode && postData.countryCode == (null || undefined)) {
@@ -67,7 +88,7 @@ class Index extends Component {
 
 
   render() {
-    let { isFileSelected, postData, blankCountry, blankName } = this.state
+    let { isFileSelected, postData, blankCountry, blankName, messageLength, captionLength } = this.state
     return (
       <div>
 
@@ -181,6 +202,7 @@ class Index extends Component {
                     <FormGroup>
                       <Label for="entrymessage">Enter your message - It should be less than 140 characters</Label>
                       <Input type="textarea" onChange={this.handleChange} value={postData && postData?.message} name="message" id="entrymessage" placeholder="Message .." />
+                      <div className="limittextRght brwsFind"><p>{140- messageLength} characters</p></div>
                     </FormGroup>
                   </div>
 
@@ -192,7 +214,7 @@ class Index extends Component {
                         <p>Browse to find the image you would like to add</p>
                         <div className="brwSize">
                           <div className="brwSizeLft"><p>(Max image size 2mb)</p></div>
-                          <div className="brwSizeRght">{isFileSelected ? isFileSelected : <p>No file selected</p>}</div>
+                          <div className="brwSizeRght">{isFileSelected ? <p>{isFileSelected}</p> : <p>No file selected</p>}</div>
                         </div>
                       </div>
                       <div className="shrBrows" >
@@ -212,7 +234,8 @@ class Index extends Component {
                   <div>
                     <FormGroup>
                       <Label for="entercaption">Enter your caption - It should be less than 40 characters</Label>
-                      <Input onChange={this.handleChange} name="caption" type="text" name="text" value={postData && postData?.text} id="entercaption" placeholder="Caption .." disabled={isFileSelected ? false : true} />
+                      <Input onChange={this.handleChange} name="caption" type="text" value={postData && postData?.caption} id="entercaption" placeholder="Caption .." disabled={isFileSelected ? false : true} />
+                      <div className="limittextRght brwsFind"><p>{40- captionLength} characters</p></div>
                     </FormGroup>
                   </div>
 

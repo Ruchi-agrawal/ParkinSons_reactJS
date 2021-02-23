@@ -9,6 +9,9 @@ body{
   height: 100%;
   font-size: 15px;
   font-family: 'Open Sans', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  background: #383637;
 }
 .clear{ clear:both; margin:0px; padding:0px; }
 p,img,input,select,textarea{ margin:0px; padding:0px; border:0px; }
@@ -143,6 +146,7 @@ p.allDuod{
 }
 .headerSpc{
     min-height: 128px;
+    display: inline-block;
 }
 .msgBoard p{
     color: #ededed;
@@ -280,6 +284,10 @@ p.allDuod{
 }
 .brwSizeRght {
     text-align: right;
+}
+.limittextRght {
+    text-align: right;
+    width: 100%;
 }
 .selectCntry button {
     background-color: #8c8f91 !important;
@@ -454,14 +462,6 @@ p.allDuod{
     width: 32px;
     cursor: pointer;
 }
-
-.counntryFlagShow{
-    width: 40px !important;
-    cursor: pointer;
-    border-radius: 12px !important;
-    height: 30px;
-    border: solid black 2px;
-}
 .cntryEye img {
     width: 34px;
     cursor: pointer;
@@ -632,6 +632,11 @@ a.shortArow img{
         width: 24px;
     }
   }
+@media (max-width: 1024px){  
+  .cstmGrid{
+    grid-auto-rows: auto !important;
+  }  
+}
 @media (max-width: 767px){
  .headerSpc{
     min-height: auto !important;
@@ -722,22 +727,206 @@ a.footerMsg{
 .foterAbbvie a.footerMsg{
     bottom: 40px;
 }
-.msgsContent .container{
-    max-width: 100%;
+/* .msgsGroup{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+    grid-auto-rows: minmax(240px, 10px);
+    overflow: hidden;
+} */
+.msgsGroup {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-auto-rows: 100px; */
+    gap: 10px;
+  }
+.msgsGroup div:nth-child(2) {
+    grid-column: 3;
+    grid-row: 2 / 4;
+  }
+.msgsGroup div:nth-child(5) {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+ }
+.msgsGroup div:nth-child(5) {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+ }
+.msgSecImg img{
+    width: 100%;
 }
-.msgsContent .col{
-    padding: 0px;
+.captionSec{
+    background: #2d7331c4;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
 }
-.msgsGroup{
-    display: inline-block;
+.captionSec p {
+    color: #ededed;
+    font-size: 14px;
 }
-.msgTxts{
-    font-size: 20px;
+.msgSec{
+    position: relative;
+}
+.captionFlag img{
+    width: 27px;
+}
+.captionSec div{
+    margin-right: 20px;
+}
+.captionSec:after{
+    width: 0px;
+    height: 0px;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #2d7331c4;
+    content: "";
+    position: absolute;
+    right: 66px;
+    bottom: 29px;
+    transform: rotate(271deg);
+}
+/* .wrapperCstm {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-flow: dense;
+    padding-left: 0px;
+  }
+.wide{
+    grid-column: span 2;
+  }
+.tall{
+    grid-row: span 2;
+} */
+ul.wrapperCstm li {
+    list-style: none;
+    border: 1px solid #dfdfdf;
+}
+.wrapperCstm li img {
+   display: block;
+   object-fit: cover;
+   width: 100%;
+   height: 100%;
+}
+/* .captionFlag img, .msgFlag img{
+    width: 24px !important;
+    height: auto !important;
+} */
+.msgTxt p {
+    color: #ededed;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 25px 47px;
     line-height: 30px;
-    font-family: 'Open Sans';
+}
+li.msgSection{
+    padding: 14px 15px;
+}
+.msgTxt p::before{
+    background-image: url('../images/leftquote.png');
+    content: "";
+    height: 20px;
+    width: 21px;
+    position: absolute;
+    left: 24px;
+    top: 47px;
+    background-repeat: no-repeat;
+    background-size: 72%;
+}
+.msgTxt p::after{
+    background-image: url('../images/rightquote.png');
+    content: "";
+    height: 20px;
+    width: 21px;
+    position: absolute;
+    right: 26px;
+    bottom: 12px;
+    background-repeat: no-repeat;
+    background-size: 72%;
+}
+.cstmGrid{
+    display: grid;
+    grid-gap: 0px;
+    grid-template-columns: repeat(auto-fill, minmax(350px,1fr));
+    grid-auto-rows: 2px;
+  }
+  .msgFlag{
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+.captionSec p span{
     font-weight: 500;
 }
-.ErrorMssg{
-    color: rgb(236, 63, 63);
-    font-size: 15px !important;
+.msgBlankSpc{
+    padding-top: 98px;
 }
+@media (max-width: 1268px){
+    .msgBlankSpc{
+        padding-top: 0px;
+    }
+}
+
+.counntryFlagShow{
+    width: 30px !important;
+    cursor: pointer;
+    border-radius: 6px !important;
+    height: 30px;
+    border: solid rgb(24, 22, 22) 3px;
+}
+
+.counntryFlagShow1{
+    width: 27px !important;
+    cursor: pointer;
+    border-radius: 6px !important;
+    height: 23px;
+    border: solid rgb(22, 21, 21) 3px;
+}
+
+.remainsDay div {
+    display: inline-flex;
+    background: #d95077;
+    min-width: 75px;
+    min-height: 70px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 7px;
+    font-family: 'Open Sans', sans-serif;
+  }
+  .remainsDay span:first-child{
+    color: #ededed;
+    font-size: 30px;
+    line-height: 43px;
+    margin: 0px !important;
+    font-weight: 400;
+  }
+  .remainsDay span:last-child{
+    color: #ededed;
+    font-size: 16px;
+    margin: 0px !important;
+  }
+  .remainsDay a{
+    color: #ededed !important;
+    font-size: 37px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 43px;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    font-weight: 300;
+  }
+  .remainsDay {
+    display: flex;
+  }
+
+  .circularProgress{
+      margin-left: 46%;
+  }

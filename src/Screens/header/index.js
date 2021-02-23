@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
-
+import { withRouter } from "react-router-dom";
 class Index extends Component {
   state = {
     anchorEl: undefined,
@@ -17,15 +17,22 @@ class Index extends Component {
   toggle = () => {
     this.setState({ isOpen: !(this.state.isOpen) })
   }
+
+  gotoMessages=()=>{
+    this.props.history.push("/messages")
+  }
   render() {
+    // if(localStorage.getItem("userEmail")==null){
+    //   this.props.history.push("/login")
+    // }
     return (
       <div className="webHeader">
         <div className="menubanner_bg">
           <Container>
             <Row>
               <Col lg="4" md="5" sm="10" xs="9">
-                <div className="webLogo"><img src={require('../../assets/images/weblogo.png')} alt="Parkinson" title="Parkinson" /></div>
-                <div className="mobLogo"><img src={require('../../assets/images/WebLogo.jpg')} alt="Parkinson" title="Parkinson" /></div>
+                <div className="webLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/weblogo.png')} alt="Parkinson" title="Parkinson" /></div>
+                <div className="mobLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/WebLogo.jpg')} alt="Parkinson" title="Parkinson" /></div>
               </Col>
               <Col lg="8" md="7" sm="2" xs="3">
                 <div className="customMenu">
@@ -33,7 +40,7 @@ class Index extends Component {
                     <NavbarToggler onClick={this.toggle} className={`MenuToggleCstm ${this.state.isOpen ? "active" : ""}`} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                       <Nav navbar>
-                        <NavItem><NavLink href="/"><img src={require('../../assets/images/homeicon.png')} alt="" title="" /></NavLink> </NavItem>
+                        <NavItem><NavLink href="/messages"><img src={require('../../assets/images/homeicon.png')} alt="" title="" /></NavLink> </NavItem>
                         <NavItem><NavLink href="/countries">Countries</NavLink></NavItem>
                         <NavItem><NavLink href="/about">About</NavLink></NavItem>
                       </Nav>
@@ -48,4 +55,4 @@ class Index extends Component {
     );
   }
 }
-export default Index;
+export default withRouter(Index);
