@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../header/index';
 import Footer from '../footer/index';
-import { fileUpload, getPosts } from "api/index"
+import { fileUpload, getActivePosts } from "api/index"
 import Flag from 'react-world-flags'
 import { baseUrl } from 'apiUrl';
 import { sortByDate } from "component/sort"
@@ -25,7 +25,7 @@ class Index extends Component {
 
     getCountryPost = async (country) => {
         let { postList, postlist1 } = this.state
-        let response = await getPosts(country?.code)
+        let response = await getActivePosts(country?.code)
         // let response = await sortByDate(resp)
         if (response && response.length > 0) {
             response.map((res, i) => {

@@ -41,11 +41,11 @@ export const getCountries = async () => {
 }
 
 
-export const getPosts = async (countryCode) => {
+export const getActivePosts = async (countryCode) => {
     const config = {
         headers: { 'content-type': 'application/json' }
     }
-    let response = countryCode ? await axios.get(API_URL.getPosts + "?countryCode=" + countryCode, config) : await axios.get(API_URL.getPosts, config)
+    let response = countryCode ? await axios.get(API_URL.getActivePosts + "?countryCode=" + countryCode, config) : await axios.get(API_URL.getActivePosts, config)
     if (response.data.success) {
         const data = response.data.data
         return data

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import { getPosts } from "api/index"
+import { getActivePosts } from "api/index"
 import { withRouter } from "react-router-dom";
 
 class Index extends Component {
@@ -20,14 +20,14 @@ class Index extends Component {
   }
 
   getNoOfPosts = async () => {
-    let response = await getPosts()
+    let response = await getActivePosts()
     if (response) {
       this.setState({ noOfPosts: response.length })
     }
   }
 
   gotoMessage = () => {
-    this.props.history.push("/")
+    this.props.history.push("/add_posts")
   }
 
   render() {
@@ -49,7 +49,7 @@ class Index extends Component {
               </Col>
               <Col lg="5" md="4" sm="5" className="footerMid">
                 <p><a>{noOfPosts} posts</a></p>
-                <p className="allDuod"><span>ALL DUOD XXXXXX</span></p>
+                <p className="allDuod"><span>ALL-NEUR-210008</span></p>
               </Col>
               <Col lg="3" md="2" sm="3" className="foterAbbvie">
                 <a><img src={require('../../assets/images/abbvie.jpg')} alt="" title="" /></a>
