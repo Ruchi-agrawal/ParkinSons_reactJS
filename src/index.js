@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import App from './component/App';
+import swDev from './swDev'
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import './assets/css/style.css';
@@ -10,4 +11,5 @@ render((
    <App />
 </BrowserRouter>
 ), document.getElementById('root'));
-serviceWorker.unregister();
+// swDev();
+serviceWorker.register();
