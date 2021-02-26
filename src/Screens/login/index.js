@@ -23,7 +23,13 @@ class Index extends Component {
       this.setState({ reqEmail: "E-mail is blank!" })
     } else {
       const UUID = md5(md5(email))
-      let response = await saveUserId(UUID)
+      let data={
+        userId: UUID,
+        email:email,
+        type:"user"
+      }
+      
+      let response = await saveUserId(data)
       if(response){
         localStorage.setItem("userEmail", email)
         localStorage.setItem("userId", UUID)  

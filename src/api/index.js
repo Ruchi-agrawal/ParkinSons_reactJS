@@ -49,8 +49,8 @@ export const getActivePosts = async (countryCode) => {
 }
 
 
-export const saveUserId = async (UUID) => {
-    let data = { "userId": UUID }
+export const saveUserId = async (data) => {
+    
     let response = await axios.post(API_URL.saveUserId, data, config)
     if (response) {
         const data = response.data.data
