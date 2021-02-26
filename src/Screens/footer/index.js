@@ -63,8 +63,8 @@ class Index extends Component {
           <Container>
             <Row>
               <Col xs="12" className="footerMid">
-                <p><a>120 posts</a></p>
-                <a className="footerMsg"><img src={require('../../assets/images/msg.png')} alt="" title="" /></a>
+                <p><a>{noOfPosts} posts</a></p>
+                <a className="footerMsg"><img onClick={() => this.gotoMessage()} src={require('../../assets/images/msg.png')} alt="" title="" /></a>
               </Col>
               <Col xs="12" className="foterLft">
                 <Row>

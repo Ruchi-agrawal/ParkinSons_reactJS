@@ -1,5 +1,5 @@
 export const sortFunction = async (objs, sortType, order) => {
-    if (order == "ascending") {
+    if (order == true) {
         if (sortType == "name") {
             objs.sort(function (a, b) {
                 if (a.name > b.name)
@@ -19,7 +19,7 @@ export const sortFunction = async (objs, sortType, order) => {
                     return 0
             })
         }
-    } else if (order == "descending") {
+    } else if (order == false) {
         if (sortType == "name") {
             objs.sort(function (a, b) {
                 if (a.name < b.name)
