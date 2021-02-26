@@ -38,7 +38,7 @@ class Index extends Component {
         <div className="webFooter websiteFtr">
           <Container>
             <Row>
-              <Col lg="4" md="6" sm="4" className="foterLft">
+              <Col lg="4" md="5" sm="12" className="foterLft">
                 <a className="nuroScience">Neuroscience</a>
                 <a className="footerDrm"><img src={require('../../assets/images/inc.png')} alt="" title="" /></a>
                 <a className="footerDrmTxt">
@@ -47,11 +47,11 @@ class Index extends Component {
                   <span>Deliver.</span>
                 </a>
               </Col>
-              <Col lg="5" md="4" sm="5" className="footerMid">
+              <Col lg="5" md="4" sm="12" className="footerMid">
                 <p><a>{noOfPosts} posts</a></p>
                 <p className="allDuod"><span>ALL-NEUR-210008</span></p>
               </Col>
-              <Col lg="3" md="2" sm="3" className="foterAbbvie">
+              <Col lg="3" md="3" sm="12" className="foterAbbvie">
                 <a><img src={require('../../assets/images/abbvie.jpg')} alt="" title="" /></a>
                 <a className="footerMsg"><img onClick={() => this.gotoMessage()} src={require('../../assets/images/msg.png')} alt="" title="" /></a>
               </Col>
@@ -63,8 +63,8 @@ class Index extends Component {
           <Container>
             <Row>
               <Col xs="12" className="footerMid">
-                <p><a>{noOfPosts} posts</a></p>
-                <a className="footerMsg"><img onClick={() => this.gotoMessage()} src={require('../../assets/images/msg.png')} alt="" title="" /></a>
+                <p><a>120 posts</a></p>
+                <a className="footerMsg"><img src={require('../../assets/images/msg.png')} alt="" title="" /></a>
               </Col>
               <Col xs="12" className="foterLft">
                 <Row>
