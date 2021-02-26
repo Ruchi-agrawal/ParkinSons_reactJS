@@ -23,7 +23,7 @@ class Index extends Component {
   }
   componentDidMount() {
     // let { postData } = this.state
-    // postData["userEmail"] = localStorage.getItem("userEmail")
+    // postData["userId"] = localStorage.getItem("userId")
   }
 
   onSelectFlag = (countryCode) => {
@@ -73,13 +73,12 @@ class Index extends Component {
     } else {
       this.setState({ blankName: false, blankCountry: false })
       postData["userId"]=userId
-      console.log("Postdata", postData)
-      // let response = await createPost(postData)
-      // if (response) {
-      //   setTimeout(() => {
-      //     this.props.history.push("/countries")
-      //   }, 1000)
-      // }
+      let response = await createPost(postData)
+      if (response) {
+        setTimeout(() => {
+          this.props.history.push("/countries")
+        }, 1000)
+      }
     }
     setTimeout(() => {
       this.setState({ blankName: false, blankCountry: false })
