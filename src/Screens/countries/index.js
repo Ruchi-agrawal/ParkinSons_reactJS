@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import Header from '../header/index';
 import Footer from '../footer/index';
-import { getCountries } from "api/index"
+import { getCountries, handleVisibility } from "api/index"
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { countries } from 'country-data';
 import { sortFunction } from "Screens/Component/sort"
@@ -13,7 +13,8 @@ class Index extends Component {
         super(props);
         this.state = {
             countryList: [],
-            nodata: true
+            nodata: true,
+            sorting: true
         };
     }
 
@@ -24,7 +25,7 @@ class Index extends Component {
     getCountry = async () => {
         let countryList = []
         let response = await getCountries()
-        response.map(code => {
+        response?.length > 0 && response.map(code => {
             let countryData = {
                 name: countries[code?._id].name,
                 count: code?.count,
@@ -35,17 +36,31 @@ class Index extends Component {
         this.setState({ countryList, nodata: false })
     }
 
-    countryPostSort = async (event, order) => {
-        let { countryList } = this.state;
-        let sorted = await sortFunction(countryList, event, order)
-        this.setState({ countryList: sorted })
+    countryPostSort = async (event) => {
+        let { countryList, sorting } = this.state;
+        let sorted = await sortFunction(countryList, event, sorting)
+        sorting = !sorting
+        this.setState({ countryList: sorted, sorting })
     }
 
-    gotoMessage = (country) => {
-        this.props.history.push({
-            pathname: "/messages",
-            state: country
-        })
+    handleVisibility = async (country, control) => {
+        let { countryList } = this.state;
+        if (control == "on") {
+            localStorage.removeItem(country?.code)
+        } else {
+            localStorage.setItem(country?.code, "visibility_off")
+        }
+        this.componentDidMount()
+    }
+
+
+    checkVisibility = (countryCode) => {
+        let check = localStorage.getItem(countryCode)
+        if (check == "visibility_off") {
+            return false
+        } else {
+            return true
+        }
     }
 
     render() {
@@ -86,17 +101,17 @@ class Index extends Component {
                                     <Row className="contryHead">
                                         <Col lg="5" md="5" sm="5" xs={5}>
                                             <p>Country
-                                                <a className="shortArow" >
-                                                    <img src={require('../../assets/images/toprow.png')} onClick={() => this.countryPostSort("name", "ascending")} alt="" title="" />
-                                                    <img src={require('../../assets/images/toprow.png')} onClick={() => this.countryPostSort("name", "descending")} alt="" title="" className="shortArowRght" />
+                                                <a className="shortArow" onClick={() => this.countryPostSort("name")} >
+                                                    <img src={require('../../assets/images/toprow.png')} alt="" title="" />
+                                                    <img src={require('../../assets/images/toprow.png')} alt="" title="" className="shortArowRght" />
                                                 </a>
                                             </p>
                                         </Col>
                                         <Col lg="3" md="3" sm="3" xs={3} className="contryPost">
                                             <p>Posts
-                                                <a className="shortArow" >
-                                                    <img src={require('../../assets/images/toprow.png')} onClick={() => this.countryPostSort("count", "ascending")} alt="" title="" />
-                                                    <img src={require('../../assets/images/toprow.png')} onClick={() => this.countryPostSort("count", "descending")} alt="" title="" className="shortArowRght" />
+                                                <a className="shortArow" onClick={() => this.countryPostSort("count")} >
+                                                    <img src={require('../../assets/images/toprow.png')} alt="" title="" />
+                                                    <img src={require('../../assets/images/toprow.png')} alt="" title="" className="shortArowRght" />
                                                 </a>
                                             </p>
                                         </Col>
@@ -107,20 +122,24 @@ class Index extends Component {
 
                                     <div className="cntryData">
                                         {nodata && <div className="circularProgress"> <CircularProgress className="w-3 mr-3 mb-3 progress-primary" color="secondary" thickness={3} /></div>}
-                                        {countryList && countryList.length && countryList.map(country => (
+                                        {countryList && countryList.length > 0 && countryList.map((country, index) => (
                                             <div>
                                                 <Row className="cntryRow">
                                                     <Col lg="5" md="5" sm="5" className="cntryFlag">
                                                         <a>
-                                                            {/* <img src={require('../../assets/images/be.png')} alt="" title="" /> */}
                                                             <Flag code={country?.code} className="counntryFlagShow" />
                                                             <span>{country?.name}</span>
                                                         </a>
                                                     </Col>
                                                     <Col lg="3" md="3" sm="3" className="cntryUnit"><p>{country?.count}</p></Col>
-                                                    <Col lg="4" md="4" sm="4" className="cntryEye cntryEyeActv">
+                                                    <Col lg="4" md="4" sm="4" className="cntryEye">
                                                         <a>
-                                                            <img src={require('../../assets/images/eye.png')} onClick={() => this.gotoMessage(country)} alt="" title="" />
+                                                            {this.checkVisibility(country?.code) ?
+                                                                <img className="cntryEyeActv" src={require('../../assets/images/eye.png')} onClick={() => this.handleVisibility(country, "off")} alt="" title="" />
+                                                                :
+                                                                <img className="cntryEyeDeactv" src={require('../../assets/images/eye.png')} onClick={() => this.handleVisibility(country, "on")} alt="" title="" />
+                                                            }
+
                                                         </a>
                                                     </Col>
                                                 </Row>
@@ -128,65 +147,6 @@ class Index extends Component {
 
                                             </div>
                                         ))}
-
-
-                                        {/* <Row className="cntryRow">
-                                                <Col lg="5" md="5" sm="5" className="cntryFlag">
-                                                    <a><img src={require('../../assets/images/de.png')} alt="" title="" /><span>Denmark</span></a></Col>
-                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>12</p></Col>
-                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                            </Row>
-                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                            <Row className="cntryRow">
-                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                                    <a><img src={require('../../assets/images/fi.png')} alt="" title="" /><span>Finland</span></a></Col>
-                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>16</p></Col>
-                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                            </Row>
-                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                            <Row className="cntryRow">
-                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                                    <a><img src={require('../../assets/images/fr.png')} alt="" title="" /><span>France</span></a></Col>
-                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>8</p></Col>
-                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                            </Row>
-                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                            <Row className="cntryRow">
-                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                                    <a><img src={require('../../assets/images/ge.png')} alt="" title="" /><span>Germany</span></a></Col>
-                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>30</p></Col>
-                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                            </Row>
-                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                            <Row className="cntryRow">
-                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                                    <a><img src={require('../../assets/images/it.png')} alt="" title="" /><span>Italy</span></a></Col>
-                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>9</p></Col>
-                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                            </Row>
-                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                            <Row className="cntryRow">
-                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                                    <a><img src={require('../../assets/images/fr.png')} alt="" title="" /><span>France</span></a></Col>
-                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>8</p></Col>
-                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                            </Row>
-                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
-
-                                            <Row className="cntryRow">
-                                                <Col lg="5" md="5" sm="5" xs={5} className="cntryFlag">
-                                                    <a><img src={require('../../assets/images/ge.png')} alt="" title="" /><span>Germany</span></a></Col>
-                                                <Col lg="3" md="3" sm="3" xs={3} className="cntryUnit"><p>30</p></Col>
-                                                <Col lg="4" md="4" sm="4" xs={4} className="cntryEye"><a><img src={require('../../assets/images/eye.png')} alt="" title="" /></a></Col>
-                                            </Row>
-                                            <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div> */}
-
-
                                     </div>
                                 </div>
                             </Col>

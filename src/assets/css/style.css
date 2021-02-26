@@ -122,7 +122,7 @@ p.allDuod{
     text-align: right;
 }
 .homeCntnt{
-    min-height: 541px;
+    min-height: 580px;
     background: #383637;
 }
 .webHeader{
@@ -434,6 +434,15 @@ p.allDuod{
 .countryLeft{
     width: 288px;
 }
+.cntryFlag{
+    width: 33%;
+}
+.cntryUnit{
+    width: 33%;
+}
+.cntryEye{
+    width: 33%;
+}
 .cntryFlag span {
     color: #ededed;
     font-size: 14px;
@@ -467,9 +476,13 @@ p.allDuod{
     cursor: pointer;
     opacity: 0.5;
 }
-.cntryEyeActv img {
+.cntryEyeActv{
     opacity: initial !important;
 }
+.cntryEyeDeactv{
+    opacity: 0.3 !important;
+}
+
 .cntryBrdr img {
     width: 100%;
 }
@@ -718,6 +731,7 @@ a.shortArow img{
 a.footerMsg img{
     height: 100px !important;
     width: auto !important;
+    cursor: pointer;
 }
 a.footerMsg{
     position: absolute;
@@ -788,7 +802,7 @@ a.footerMsg{
     content: "";
     position: absolute;
     right: 66px;
-    bottom: 29px;
+    bottom: 26.5px;
     transform: rotate(271deg);
 }
 /* .wrapperCstm {
@@ -865,7 +879,7 @@ li.msgSection{
     font-weight: 500;
 }
 .msgBlankSpc{
-    padding-top: 98px;
+    padding-top: 125px;
 }
 @media (max-width: 1268px){
     .msgBlankSpc{
@@ -877,7 +891,7 @@ li.msgSection{
     width: 30px !important;
     cursor: pointer;
     border-radius: 6px !important;
-    height: 30px;
+    /* height: 30px; */
     border: solid rgb(24, 22, 22) 3px;
 }
 
@@ -885,7 +899,7 @@ li.msgSection{
     width: 27px !important;
     cursor: pointer;
     border-radius: 6px !important;
-    height: 23px;
+    /* height: 23px; */
     border: solid rgb(22, 21, 21) 3px;
 }
 
@@ -926,7 +940,9 @@ li.msgSection{
   .remainsDay {
     display: flex;
   }
-
   .circularProgress{
       margin-left: 46%;
   }
+  /* .msgSection {
+    min-height: 231px;
+  } */

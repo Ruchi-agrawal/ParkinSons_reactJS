@@ -19,21 +19,23 @@ class Index extends Component {
         let { fileUrl } = this.state
         fileUrl = baseUrl
         this.setState({ fileUrl })
-        let country = this.props?.history?.location?.state ?? undefined
-        this.getCountryPost(country)
+        this.getCountryPost()
     }
 
-    getCountryPost = async (country) => {
+    getCountryPost = async () => {
         let { postList, postlist1 } = this.state
-        let response = await getActivePosts(country?.code)
-        // let response = await sortByDate(resp)
+        let response = await getActivePosts()
+
         if (response && response.length > 0) {
+            let resp = []
             response.map((res, i) => {
-                if (i == 0) {
-                    postlist1 = res
-                } else {
-                    postList.push(res)
+                let check = localStorage.getItem(res?.countryCode)
+                if (!check) {
+                    resp.push(res)
                 }
+            })
+            resp.map((res, i) => {
+                i == 0 ? postlist1 = res : postList.push(res)
             })
             this.setState({ postList, postlist1 })
         }
@@ -51,58 +53,46 @@ class Index extends Component {
                 {/* start of mid section */}
                 <div className="homeCntnt msgsContent">
                     <div className="wrapperCstm cstmGrid">
+
+                        {/* <div className="custmItem">
+                          <div className="msgSec" style={{height:'132px', width:'452px'}}></div>
+                        </div>  */}
+
                         {postlist1?.imageUrl ?
                             <div className="custmItem">
-                                <div className="msgSec">
-                                    <div className="msgSecImg msgBlankSpc">
-                                        <img src={fileUrl + "/" + postlist1?.imageUrl} alt="" title="" /></div>
-                                    <div className="captionSec">{ }
-                                        <div className="captionFlag">
-                                            <Flag code={postlist1?.countryCode} className="counntryFlagShow1" />                                            {/* <img src={require('../../assets/images/be.png')} alt="" title="" /> */}
-                                        </div>
+                                <div className="msgSec msgBlankSpc">
+                                    <div className="msgSecImg"><img src={fileUrl + "/" + postlist1?.imageUrl} alt="" title="" /></div>
+                                    <div className="captionSec">
+                                        <div className="captionFlag"><Flag code={postlist1?.countryCode} className="counntryFlagShow1" /></div>
                                         <p>{postlist1?.caption}</p>
                                     </div>
                                 </div>
                             </div>
                             :
                             <div className="msgSection custmItem">
-                                <div className="msgSec">
-                                    <div className="msgFlag"><a>
-                                        <Flag code={postlist1?.countryCode} className="counntryFlagShow1" />                                            {/* <img src={require('../../assets/images/be.png')} alt="" title="" /> */}
-                                    </a></div>
-                                    <div className="msgTxt">
-                                        <p>{postlist1?.message}</p>
-                                    </div>
+                                <div className="msgSec msgBlankSpc">
+                                    <div className="msgFlag"><a><Flag code={postlist1?.countryCode} className="counntryFlagShow1" /></a></div>
+                                    <div className="msgTxt"><p>{postlist1?.message}</p></div>
                                 </div>
                             </div>
                         }
 
                         {postList && postList.length > 0 && postList.map(posts => (
-                            <div>
+                            <div className="custmItem">
                                 {posts?.imageUrl ?
-                                    <div className="custmItem">
-                                        <div className="msgSec">
-                                            <div className="msgSecImg">
-                                                <img src={fileUrl + "/" + posts?.imageUrl} alt="" title="" /></div>
-                                            <div className="captionSec">{ }
-                                                <div className="captionFlag">
-                                                    {/* <img src={require('../../assets/images/fr.png')} alt="" title="" /> */}
-                                                    <Flag code={posts?.countryCode} className="counntryFlagShow1" />
-                                                </div>
-                                                <p>{posts?.caption}</p>
+                                    <div className="msgSec">
+                                        <div className="msgSecImg"><img src={fileUrl + "/" + posts?.imageUrl} alt="" title="" /></div>
+                                        <div className="captionSec">
+                                            <div className="captionFlag">
+                                                <Flag code={posts?.countryCode} className="counntryFlagShow1" />
                                             </div>
+                                            <p>{posts?.caption}</p>
                                         </div>
                                     </div>
                                     :
-                                    <div className="msgSection custmItem">
-                                        <div className="msgSec">
-                                            <div className="msgFlag"><a>
-                                                <Flag code={posts?.countryCode} className="counntryFlagShow1" />
-                                            </a></div>
-                                            <div className="msgTxt">
-                                                <p>{posts?.message}</p>
-                                            </div>
-                                        </div>
+                                    <div className="msgSection msgSec">
+                                        <div className="msgFlag"><a><Flag code={posts?.countryCode} className="counntryFlagShow1" /></a></div>
+                                        <div className="msgTxt"><p>{posts?.message}</p></div>
                                     </div>
                                 }
                             </div>

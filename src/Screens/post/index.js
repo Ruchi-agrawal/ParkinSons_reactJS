@@ -22,8 +22,8 @@ class Index extends Component {
     this.uploadFile = this.uploadFile.bind(this);
   }
   componentDidMount() {
-    let { postData } = this.state
-    postData["userEmail"] = localStorage.getItem("userEmail")
+    // let { postData } = this.state
+    // postData["userId"] = localStorage.getItem("userId")
   }
 
   onSelectFlag = (countryCode) => {
@@ -64,15 +64,15 @@ class Index extends Component {
   }
 
   handleSubmit = async () => {
+    let userId = localStorage.getItem("userId")
     let { postData } = this.state
-    console.log("POstdata", postData)
-    console.log("post Data", postData)
     if (!postData.userName && postData.userName == (null || undefined)) {
       this.setState({ blankName: "User Name is Blank." })
     } else if (!postData.countryCode && postData.countryCode == (null || undefined)) {
       this.setState({ blankCountry: "Country is not Selected." })
     } else {
       this.setState({ blankName: false, blankCountry: false })
+      postData["userId"]=userId
       let response = await createPost(postData)
       if (response) {
         setTimeout(() => {

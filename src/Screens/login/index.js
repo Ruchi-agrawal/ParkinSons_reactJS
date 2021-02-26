@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-
 import { FormGroup, Label, Input, Button } from 'reactstrap';
-
+import md5 from 'md5-hash';
+import {saveUserId} from "api/index"
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -17,20 +17,24 @@ class Index extends Component {
     this.setState({ email })
   }
 
-  handleSubmit = () => {
+  handleSubmit = async() => {
     let { email } = this.state
     if (!email || email == "") {
       this.setState({ reqEmail: "E-mail is blank!" })
     } else {
-      localStorage.setItem("userEmail", email)
-      this.props.history.push({
-        pathname: "/add_posts",
-        state: { email: email }
-      })
+      const UUID = md5(md5(email))
+      let response = await saveUserId(UUID)
+      if(response){
+        localStorage.setItem("userEmail", email)
+        localStorage.setItem("userId", UUID)  
+        this.props.history.push({
+          pathname: "/add_posts"
+        })
+      }      
     }
-    setTimeout(()=>{
-      this.setState({reqEmail:false})
-    },3000)
+    setTimeout(() => {
+      this.setState({ reqEmail: false })
+    }, 3000)
   }
   render() {
     let { reqEmail } = this.state
@@ -46,7 +50,7 @@ class Index extends Component {
               <Label for="useremail">Enter your work email adress</Label>
               <Input onChange={this.handleChange} type="email" name="email" id="useremail" />
             </FormGroup>
-            {reqEmail && <div style={{color:"#F6ECEA"}}><b>{reqEmail}</b></div>}
+            {reqEmail && <div style={{ color: "#F6ECEA" }}><b>{reqEmail}</b></div>}
             <div className="loginFormBtn" onClick={this.handleSubmit}><Button color="primary">Enter</Button></div>
           </div>
 
