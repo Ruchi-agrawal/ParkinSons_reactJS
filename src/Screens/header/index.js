@@ -31,7 +31,7 @@ class Index extends Component {
           <Container>
             <Row>
               <Col lg="4" md="5" sm="10" xs="9">
-                <div className="webLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/weblogo2.png')} alt="Parkinson" title="Parkinson" /></div>
+                <div className="webLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/logo2.jpg')} alt="Parkinson" title="Parkinson" /></div>
                 <div className="mobLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/WebLogo.jpg')} alt="Parkinson" title="Parkinson" /></div>
               </Col>
               <Col lg="8" md="7" sm="2" xs="3">

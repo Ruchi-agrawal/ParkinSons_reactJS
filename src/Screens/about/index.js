@@ -16,7 +16,7 @@ class Index extends Component {
                 <div className="homeCntnt">
                     <Container>
                         <Row>
-                            <Col lg="4" md="6">
+                            <Col lg="4" md="5" xs="12">
                                  
                                 {/* Start of Common space */}
                                 <div className="headerSpc"></div>
@@ -35,7 +35,7 @@ class Index extends Component {
 
                             </Col>
 
-                            <Col lg="5" md="6">
+                            <Col lg="5" md="7" xs="12">
                                 <div className="comonMidSec aboutCntnt">
                                     <div>
                                         <div className="termUses">
