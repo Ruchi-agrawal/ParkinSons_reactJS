@@ -26,7 +26,7 @@ class Index extends Component {
                     <p>Opens for your posts in:</p>
                 </div>
                 <div>
-                    <div class="remainsDay">
+                    <div className="remainsDay">
                         <div><span id="days"></span><span>Days</span></div><a>:</a>
                         <div><span id="hours"></span><span>Hours</span></div><a>:</a>
                         <div><span id="minutes"></span><span>Minutes</span></div>
