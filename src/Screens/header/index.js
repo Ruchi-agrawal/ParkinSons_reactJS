@@ -22,9 +22,9 @@ class Index extends Component {
     this.props.history.push("/messages")
   }
   render() {
-    // if(localStorage.getItem("userEmail")==null){
-    //   this.props.history.push("/login")
-    // }
+    if(!localStorage.getItem("userEmail") || !localStorage.getItem("userId")){
+      this.props.history.push("/login")
+    }
     return (
       <div className="webHeader">
         <div className="menubanner_bg">
@@ -32,7 +32,7 @@ class Index extends Component {
             <Row>
               <Col lg="4" md="5" sm="10" xs="9">
                 <div className="webLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/logo2.jpg')} alt="Parkinson" title="Parkinson" /></div>
-                <div className="mobLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/WebLogo.jpg')} alt="Parkinson" title="Parkinson" /></div>
+                <div className="mobLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/WebLogoPng.png')} alt="Parkinson" title="Parkinson" /></div>
               </Col>
               <Col lg="8" md="7" sm="2" xs="3">
                 <div className="customMenu">

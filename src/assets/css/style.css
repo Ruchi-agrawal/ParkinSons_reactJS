@@ -557,7 +557,7 @@ p.allDuod{
     cursor: pointer;
     opacity: 0.5;
 }
-.cntryEyeActv img {
+.cntryEyeActv {
     opacity: initial !important;
 }
 .cntryEyeDeactv{
@@ -1111,4 +1111,10 @@ li.msgSection{
 }
 .countFooter .websiteFtr{
     display: block !important;
+}
+.myName{
+    color: #ccc8c8;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 25px 47px;
 }

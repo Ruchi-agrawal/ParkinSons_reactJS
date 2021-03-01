@@ -7,7 +7,7 @@ import ReactFlagsSelect from 'react-flags-select';
 import "react-flags-select/css/react-flags-select.css";
 import "react-flags-select/scss/react-flags-select.scss";
 import { fileUpload, createPost } from "api/index"
-
+import $ from "jquery"
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -16,8 +16,8 @@ class Index extends Component {
       postData: {},
       isFileSelected: false,
       msgChar: null,
-      messageLength :0,
-      captionLength :0
+      messageLength: 0,
+      captionLength: 0
     };
     this.uploadFile = this.uploadFile.bind(this);
   }
@@ -37,17 +37,21 @@ class Index extends Component {
     let target = event.target
     if (target?.name == "message") {
       messageLength = target?.value?.length
-      if(messageLength <= 140){
+      if (messageLength <= 140) {
         postData[target.name] = target.value
-        this.setState({messageLength, postData})
+        this.setState({ messageLength, postData })
+      }else{
+        // $(".postform textarea").css("border", "rgb(251 82 82) 2px");
       }
     } else if (target?.name == "caption") {
       captionLength = target?.value?.length
-      if(captionLength <= 40){
+      if (captionLength <= 40) {
         postData[target.name] = target.value
-        this.setState({captionLength, postData})
+        this.setState({ captionLength, postData })
+      }else{
+        // $(".postform redBorder").css("border", "rgb(251 82 82) 2px");
       }
-    }else{
+    } else {
       postData[target.name] = target.value
     }
   }
@@ -72,7 +76,7 @@ class Index extends Component {
       this.setState({ blankCountry: "Country is not Selected." })
     } else {
       this.setState({ blankName: false, blankCountry: false })
-      postData["userId"]=userId
+      postData["userId"] = userId
       let response = await createPost(postData)
       if (response) {
         setTimeout(() => {
@@ -135,60 +139,60 @@ class Index extends Component {
                   <div className="selectCntry">
                     <div><label><span>*</span>Select your country</label></div>
                     <ReactFlagsSelect
-                      // countries={["AT", "AU", "BE", "BU", "CR", "CY", "CZ", "DE", "ES", "FI", "FR", "GE", "GR",
-                      //   "HU", "IR", "IT", "LA", "LT", "LU", "NE", "PL", "PT", "RO", "SK", "SI", "SE", "SW", "IC", "LI",
-                      //   "NO", "AL", "IS", "KU", "QA", "SA", "AE", "RU", "SO", "SW", "TU", "UK", "NZ", "JA", "TA", "TH",
-                      //   "CA", "US", "PR"]}
-                      // customLabels={{
-                      //   "AT": "Austria",
-                      //   "AU": "Australia",
-                      //   "BE": "Belgium",
-                      //   "BU": "Bulgaria",
-                      //   "CR": "Croatia",
-                      //   "CY": "Cyprus",
-                      //   "CZ": "Czech Republic",
-                      //   "DE": "Denmark",
-                      //   "ES": "Estonia",
-                      //   "FI": "Finland",
-                      //   "FR": "France",
-                      //   "GE": "Germany",
-                      //   "GR": "Greece",
-                      //   "HU": "Hungary",
-                      //   "IR": "Ireland",
-                      //   "IT": "Italy",
-                      //   "LA": "Latvia",
-                      //   "LT": "Lithuania",
-                      //   "LU": "Luxembourg",
-                      //   "NE": "Netherlands",
-                      //   "PL": "Poland",
-                      //   "PT": "Portugal",
-                      //   "RO": "Romania",
-                      //   "SK": "Slovakia",
-                      //   "SI": "Slovenia",
-                      //   "SP": "Spain",
-                      //   "SE": "Sweden",
-                      //   "IC": "Iceland",
-                      //   "LI": "Liechtenstein",
-                      //   "NO": "Norway",
-                      //   "AL": "Albania",
-                      //   "IS": "Israel",
-                      //   "KU": "Kuwait",
-                      //   "QA": "Qatar",
-                      //   "SA": "Saudi Arabia",
-                      //   "AE": "United Arab Emirates",
-                      //   "RU": "Russia",
-                      //   "SO": "South Africa",
-                      //   "SW": "Switzerland",
-                      //   "TU": "Turkey",
-                      //   "UK": "United Kingdom",
-                      //   "NZ": "New Zealand",
-                      //   "JA": "Japan",
-                      //   "TA": "Taiwan",
-                      //   "TH": "Thailand",
-                      //   "CA": "Canada",
-                      //   "US": "United States",
-                      //   "PR": "Puerto Rico"
-                      // }}
+                      countries={["AT", "AU", "BE", "BU", "CR", "CY", "CZ", "DE", "ES", "FI", "FR", "GE", "GR",
+                        "HU", "IR", "IT", "LA", "LT", "LU", "NE", "PL", "PT", "RO", "SK", "SI", "SE", "SW", "IC", "LI",
+                        "NO", "AL", "IS", "KU", "QA", "SA", "AE", "RU", "SO", "SW", "TU", "UK", "NZ", "JA", "TA", "TH",
+                        "CA", "US", "PR"]}
+                      customLabels={{
+                        "AT": "Austria",
+                        "AU": "Australia",
+                        "BE": "Belgium",
+                        "BU": "Bulgaria",
+                        "CR": "Croatia",
+                        "CY": "Cyprus",
+                        "CZ": "Czech Republic",
+                        "DE": "Denmark",
+                        "ES": "Estonia",
+                        "FI": "Finland",
+                        "FR": "France",
+                        "GE": "Germany",
+                        "GR": "Greece",
+                        "HU": "Hungary",
+                        "IR": "Ireland",
+                        "IT": "Italy",
+                        "LA": "Latvia",
+                        "LT": "Lithuania",
+                        "LU": "Luxembourg",
+                        "NE": "Netherlands",
+                        "PL": "Poland",
+                        "PT": "Portugal",
+                        "RO": "Romania",
+                        "SK": "Slovakia",
+                        "SI": "Slovenia",
+                        "SP": "Spain",
+                        "SE": "Sweden",
+                        "IC": "Iceland",
+                        "LI": "Liechtenstein",
+                        "NO": "Norway",
+                        "AL": "Albania",
+                        "IS": "Israel",
+                        "KU": "Kuwait",
+                        "QA": "Qatar",
+                        "SA": "Saudi Arabia",
+                        "AE": "United Arab Emirates",
+                        "RU": "Russia",
+                        "SO": "South Africa",
+                        "SW": "Switzerland",
+                        "TU": "Turkey",
+                        "UK": "United Kingdom",
+                        "NZ": "New Zealand",
+                        "JA": "Japan",
+                        "TA": "Taiwan",
+                        "TH": "Thailand",
+                        "CA": "Canada",
+                        "US": "United States",
+                        "PR": "Puerto Rico"
+                      }}
                       placeholder="Select .."
                       onSelect={this.onSelectFlag}
                       selected={this.state.country_code}
@@ -202,7 +206,7 @@ class Index extends Component {
                     <FormGroup>
                       <Label for="entrymessage">Enter your message - It should be less than 140 characters</Label>
                       <Input type="textarea" onChange={this.handleChange} value={postData && postData?.message} name="message" id="entrymessage" placeholder="Message .." />
-                      <div className="limittextRght brwsFind"><p>{140- messageLength} characters</p></div>
+                      <div className="limittextRght brwsFind"><p>{140 - messageLength} characters</p></div>
                     </FormGroup>
                   </div>
 
@@ -223,9 +227,9 @@ class Index extends Component {
                           <img src={require('../../assets/images/share2.png')} alt="" title="" />
                         </label>
 
-                        <a>
-                          {isFileSelected && <img src={this.state.filePreview} alt="" title="" />}
-                        </a>
+                        {isFileSelected && <a>
+                          <img src={this.state.filePreview} alt="" title="" />
+                        </a>}
                       </div>
                     </div>
 
@@ -234,8 +238,8 @@ class Index extends Component {
                   <div>
                     <FormGroup>
                       <Label for="entercaption">Enter your caption - It should be less than 40 characters</Label>
-                      <Input onChange={this.handleChange} name="caption" type="text" value={postData && postData?.caption} id="entercaption" placeholder="Caption .." disabled={isFileSelected ? false : true} />
-                      <div className="limittextRght brwsFind"><p>{40- captionLength} characters</p></div>
+                      <Input className="redBorder" onChange={this.handleChange} name="caption" type="text" value={postData && postData?.caption} id="entercaption" placeholder="Caption .." disabled={isFileSelected ? false : true} />
+                      <div className="limittextRght brwsFind"><p>{40 - captionLength} characters</p></div>
                     </FormGroup>
                   </div>
 

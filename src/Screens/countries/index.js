@@ -127,7 +127,8 @@ class Index extends Component {
                                                 <Row className="cntryRow">
                                                     <Col lg="5" md="5" sm="5" className="cntryFlag">
                                                         <a>
-                                                            <Flag code={country?.code} className="counntryFlagShow" />
+                                                            {/* <Flag code={country?.code} className="counntryFlagShow" /> */}
+                                                            <img src={require(`../../assets/countries/${country?.name}-Flag-icon.png`)} alt="" title="" />
                                                             <span>{country?.name}</span>
                                                         </a>
                                                     </Col>
