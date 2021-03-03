@@ -8,5 +8,7 @@ export const API_URL = {
     getPosts: `${url}/posts/get_all_post`,
     getActivePosts: `${url}/posts/get_active_post`,
     saveUserId: `${url}/user/save_users`,
-    handleVisibility: `${url}/user/handle_visibility`
+    handleVisibility: `${url}/user/handle_visibility`,
+    checkUserStatus: `${url}/user/check_user_status`,
+    checkAllUserStatus : `${url}/user/check_all_user_status`
 }

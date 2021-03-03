@@ -26,7 +26,7 @@ class Index extends Component {
       this.setState({ reqEmail: "E-mail is blank!" })
     } else if (!password || password == "") {
       this.setState({ reqEmail: "Password is blank!" })
-    } else if (password !== "Bewnexus(123)") {
+    } else if (password !== "#8rrw456ZX") {
       this.setState({ reqEmail: "Incorrect Password" })
     } else {
       const UUID = md5(md5(email))

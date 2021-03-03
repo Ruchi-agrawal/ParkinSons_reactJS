@@ -6,7 +6,7 @@ import { getCountries, handleVisibility } from "api/index"
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { countries } from 'country-data';
 import { sortFunction } from "Screens/Component/sort"
-import Flag from 'react-world-flags'
+import $ from "jquery"
 class Index extends Component {
 
     constructor(props) {
@@ -31,6 +31,12 @@ class Index extends Component {
                 count: code?.count,
                 code: code?._id
             }
+            if (countryData.name == "Costa Rica") {
+                countryData.name = "Croatia"
+            }
+            if (countryData.name == "Somalia") {
+                countryData.name = "South Africa"
+            }
             countryList.push(countryData)
         })
         this.setState({ countryList, nodata: false })
@@ -44,15 +50,24 @@ class Index extends Component {
     }
 
     handleVisibility = async (country, control) => {
+        control = this.checkVisibility(country?.code)
         let { countryList } = this.state;
+        control = control ? "off" : "on"
         if (control == "on") {
             localStorage.removeItem(country?.code)
         } else {
             localStorage.setItem(country?.code, "visibility_off")
         }
-        this.componentDidMount()
+        this.changIcon(country?.code, control)
     }
 
+    changIcon = (code, control) => {
+        if (control == "on") {
+            $(`#${code}`).addClass('cntryEyeActv').removeClass('cntryEyeDeactv');
+        } else {
+            $(`#${code}`).addClass('cntryEyeDeactv').removeClass('cntryEyeActv');
+        }
+    }
 
     checkVisibility = (countryCode) => {
         let check = localStorage.getItem(countryCode)
@@ -117,7 +132,7 @@ class Index extends Component {
                                         </Col>
                                         <Col lg="4" md="4" sm="4" xs={4} className="contryVisblty"><p>Visability</p></Col>
                                     </Row>
-                                    <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
+                                    <div className="cntryBrdr"></div>
 
 
                                     <div className="cntryData">
@@ -135,16 +150,11 @@ class Index extends Component {
                                                     <Col lg="3" md="3" sm="3" className="cntryUnit"><p>{country?.count}</p></Col>
                                                     <Col lg="4" md="4" sm="4" className="cntryEye">
                                                         <a>
-                                                            {this.checkVisibility(country?.code) ?
-                                                                <img className="cntryEyeActv" src={require('../../assets/images/eye.png')} onClick={() => this.handleVisibility(country, "off")} alt="" title="" />
-                                                                :
-                                                                <img className="cntryEyeDeactv" src={require('../../assets/images/eye.png')} onClick={() => this.handleVisibility(country, "on")} alt="" title="" />
-                                                            }
-
+                                                            <img className={this.checkVisibility(country?.code) ? "cntryEyeActv" : "cntryEyeDeactv"} id={country?.code} src={require('../../assets/images/eye.png')} onClick={() => this.handleVisibility(country)} alt="" title="" />
                                                         </a>
                                                     </Col>
                                                 </Row>
-                                                <div className="cntryBrdr"><img src={require('../../assets/images/btmbrdr.png')} alt="" title="" /></div>
+                                                <div className="cntryBrdr"></div>
 
                                             </div>
                                         ))}

@@ -80,7 +80,7 @@ class Index extends Component {
       let response = await createPost(postData)
       if (response) {
         setTimeout(() => {
-          this.props.history.push("/countries")
+          this.props.history.push("/messages")
         }, 1000)
       }
     }
@@ -105,7 +105,7 @@ class Index extends Component {
           <Container>
             <Row>
 
-              <Col lg="4" md="6">
+              <Col lg="4" md="5">
 
                 {/* Start of Common space */}
                 <div className="headerSpc"></div>
@@ -119,13 +119,13 @@ class Index extends Component {
                   <p>you can add:</p>
                   <ul>
                     <li>- an image with a message</li>
-                    <li>- just a mesage</li>
+                    <li>- just a message</li>
                     <li>- just an image</li>
                   </ul>
                 </div>
               </Col>
 
-              <Col lg="5" md="6">
+              <Col lg="4" md="5">
                 <div className="comonMidSec postform">
                   {blankCountry && <b className="ErrorMssg">{blankCountry}</b>}
                   {blankName && <b className="ErrorMssg">{blankName}</b>}
@@ -139,8 +139,9 @@ class Index extends Component {
                   <div className="selectCntry">
                     <div><label><span>*</span>Select your country</label></div>
                     <ReactFlagsSelect
+                    searchPlaceholder="Search countries"
                       countries={["AT", "AU", "BE", "BU", "CR", "CY", "CZ", "DE", "ES", "FI", "FR", "GE", "GR",
-                        "HU", "IR", "IT", "LA", "LT", "LU", "NE", "PL", "PT", "RO", "SK", "SI", "SE", "SW", "IC", "LI",
+                        "HU", "IR", "IT", "LA", "LT", "LU", "NL", "PL", "PT", "RO", "SK", "SI", "SE", "SW", "IC", "LI",
                         "NO", "AL", "IS", "KU", "QA", "SA", "AE", "RU", "SO", "SW", "TU", "UK", "NZ", "JA", "TA", "TH",
                         "CA", "US", "PR"]}
                       customLabels={{
@@ -163,7 +164,7 @@ class Index extends Component {
                         "LA": "Latvia",
                         "LT": "Lithuania",
                         "LU": "Luxembourg",
-                        "NE": "Netherlands",
+                        "NL": "Netherlands",
                         "PL": "Poland",
                         "PT": "Portugal",
                         "RO": "Romania",

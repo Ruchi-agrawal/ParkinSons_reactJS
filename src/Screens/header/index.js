@@ -30,11 +30,11 @@ class Index extends Component {
         <div className="menubanner_bg">
           <Container>
             <Row>
-              <Col lg="4" md="5" sm="10" xs="9">
+              <Col lg="4" md="5" sm="12" xs="12">
                 <div className="webLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/logo2.jpg')} alt="Parkinson" title="Parkinson" /></div>
                 <div className="mobLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/WebLogoPng.png')} alt="Parkinson" title="Parkinson" /></div>
               </Col>
-              <Col lg="8" md="7" sm="2" xs="3">
+              <Col lg="8" md="7" sm="12" xs="12" className="setMob">
                 <div className="customMenu">
                   <Navbar light expand="md">
                     <NavbarToggler onClick={this.toggle} className={`MenuToggleCstm ${this.state.isOpen ? "active" : ""}`} />

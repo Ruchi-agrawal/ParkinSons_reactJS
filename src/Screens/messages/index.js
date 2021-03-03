@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import Header from '../header/index';
 import Footer from '../footer/index';
-import { fileUpload, getActivePosts } from "api/index"
-import Flag from 'react-world-flags'
+import { fileUpload, getActivePosts, checkAllUser } from "api/index"
 import { countries } from 'country-data';
 import { baseUrl } from 'apiUrl';
+import moment from "moment"
 import { sortByDate } from "component/sort"
+import { resizeAllGridItems } from "Screens/Component/manageGridItem"
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
             postList: [],
-            postlist1: {},
+            postlist1: [],
             fileUrl: "",
         };
     }
@@ -23,23 +24,63 @@ class Index extends Component {
         this.getCountryPost()
     }
 
+    checkUserAndPost = async (response) => {
+        let UserId = []
+        let resp = []
+        response.map(async (res, i) => {
+            UserId.push(res.userId)
+            let check = localStorage.getItem(res?.countryCode)
+            if (!check) {
+                let countryName = countries[res?.countryCode].name
+                if (countryName == "Costa Rica") {
+                    countryName = "Croatia"
+                }
+                if (countryName == "Somalia") {
+                    countryName = "South Africa"
+                }
+                res["countryName"] = countryName
+                resp.push(res)
+            }
+        })
+        let value = await checkAllUser(UserId)
+        if (value?.length > 0) {
+            let value1 = await this.checkUserBlockTime(value, resp)
+            return value1
+        } else {
+            return resp
+        }
+    }
+
+    checkUserBlockTime = (value, resp) => {
+        let array = []
+        resp?.length > 0 && resp.map(posts => {
+            let ifUser = value.filter(users => {
+                return posts.userId == users.userId
+            })
+            if (ifUser.length > 0) {
+                let postCreateTime = moment(posts?.date)
+                let userBlockedTime = moment(ifUser[0]?.blockedAt)
+                if (userBlockedTime > postCreateTime) {
+                    array.push(posts)
+                }
+            } else {
+                array.push(posts)
+            }
+        })
+        return array
+    }
+
+
     getCountryPost = async () => {
         let { postList, postlist1 } = this.state
         let response = await getActivePosts()
-
         if (response && response.length > 0) {
-            let resp = []
-            response.map((res, i) => {
-                let check = localStorage.getItem(res?.countryCode)
-                if (!check) {
-                    let countryName = countries[res?.countryCode].name
-                    res["countryName"] = countryName
-                    resp.push(res)
-                }
-            })
-            resp.map((res, i) => {
+            let resp = await this.checkUserAndPost(response)
+            resp.reverse()
+            resp && resp.length > 0 && resp.map((res, i) => {
                 i == 0 ? postlist1 = res : postList.push(res)
             })
+            resizeAllGridItems("custmItem")
             this.setState({ postList, postlist1 })
         }
     }
@@ -61,45 +102,41 @@ class Index extends Component {
                           <div className="msgSec" style={{height:'132px', width:'452px'}}></div>
                         </div>  */}
 
-                        {postlist1 && postlist1 !== null && postlist1?.imageUrl ?
+                        {postlist1 && postlist1?.imageUrl && postlist1?.message ?
                             <div className="custmItem">
-                                <div className="msgSec msgBlankSpc">
-                                    <div className="msgSecImg"><img src={fileUrl + "/" + postlist1?.imageUrl} alt="" title="" /></div>
-                                    <div className="captionSec">
-                                        <div className="captionFlag"><img src={require(`../../assets/countries/${postlist1?.countryName}-Flag-icon.png`)} alt="" title="" /></div>
-                                        <p>{postlist1?.caption}</p>
-                                    </div>
-                                </div>
-                                {postlist1?.message &&
-                                    <div>
-                                        <div className="msgTxt">
-                                            <p>{postlist1?.message}</p>
+                                <div className="msgSec msgBlankSpc msgSecBg">
+                                    <div className="msgSecImg">
+                                        <div><img src={fileUrl + "/" + postlist1?.imageUrl} alt="" title="" /></div>
+                                        <div className="captionSec">
+                                            <div className="captionFlag"><img src={require(`../../assets/countries/${postlist1?.countryName}-Flag-icon.png`)} alt="" title="" /></div>
+                                            <p>{postlist1?.caption}</p>
                                         </div>
-                                        <p>
-                                            <span className="myName">{postlist1?.userName}</span>
-                                        </p>
                                     </div>
-                                }
-
+                                    {postlist1?.message &&
+                                        <div>
+                                            <div className="msgTxt"><p>{postlist1?.message}</p></div>
+                                            <div><label className="myName">{postlist1?.userName}</label></div>
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                            :
+                            : postlist1 && postlist1?.message ?
                             <div className="msgSection custmItem">
-                                <div className="msgSec msgBlankSpc">
+                                <div className="msgSec msgBlankSpc msgBlankTxt">
                                     <div className="msgFlag"><a><img src={require(`../../assets/countries/${postlist1?.countryName ?? "Default"}-Flag-icon.png`)} alt="" title="" /> </a></div>
                                     <div className="msgTxt"><p>{postlist1?.message}</p></div>
-                                    <p>
-                                        <span className="myName">{postlist1?.userName}</span>
-                                    </p>
+                                    <div><label className="myName">{postlist1?.userName}</label></div>
                                 </div>
-                            </div>
+                            </div> :
+                            <></>
                         }
 
                         {postList && postList.length > 0 && postList.map(posts => (
-                            <div>
+                            <div className="custmItem">
                                 {posts?.imageUrl ?
-                                    <div className="custmItem">
-                                        <div className="msgSec">
-                                            <div className="msgSecImg"><img src={fileUrl + "/" + posts?.imageUrl} alt="" title="" /></div>
+                                    <div className="msgSec msgSecBg">
+                                        <div className="msgSecImg">
+                                            <div><img src={fileUrl + "/" + posts?.imageUrl} alt="" title="" /></div>
                                             <div className="captionSec">
                                                 <div className="captionFlag">
                                                     <img src={require(`../../assets/countries/${posts?.countryName}-Flag-icon.png`)} alt="" title="" />
@@ -110,216 +147,20 @@ class Index extends Component {
                                         <div className="msgTxt">
                                             {posts?.message && <p>{posts?.message}</p>}
                                         </div>
-                                        {postlist1?.message && <p>
-                                            <span className="myName">{posts?.userName}</span>
-                                        </p>}
+                                        {postlist1?.message &&
+                                            <div><label className="myName">{posts?.userName}</label></div>}
                                     </div>
                                     :
-                                    <div className="custmItem">
-                                        <div className="msgSection msgSec">
-                                            <div className="msgFlag"><a>
-                                                <img src={require(`../../assets/countries/${posts?.countryName}-Flag-icon.png`)} alt="" title="" />
-                                            </a></div>
-                                            <div className="msgTxt"><p>{posts?.message}</p></div>
-                                            <p>
-                                                <span className="myName">{posts?.userName}</span>
-                                            </p>
-                                        </div>
+                                    <div className="msgSection msgSec">
+                                        <div className="msgFlag"><a>
+                                            <img src={require(`../../assets/countries/${posts?.countryName}-Flag-icon.png`)} alt="" title="" />
+                                        </a></div>
+                                        <div className="msgTxt"><p>{posts?.message}</p></div>
+                                        <div><label className="myName">{posts?.userName}</label></div>
                                     </div>
                                 }
                             </div>
                         ))}
-
-
-                        {/* <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images4.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/fr.png')} alt="" title="" /></div>
-                                    <p><span>My name</span> - Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgFlag"><a><img src={require('../../assets/images/be.png')} alt="" title="" /></a></div>
-                                <div className="msgTxt">
-                                    <p>Here is my message labore et dolore magna adivqua. Quis ipsum suspendisse divtrices gravida.
-                                    Risus commodo viverra maecenas accumsan lacus vel facidivsis.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images4.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/fi.png')} alt="" title="" /></div>
-                                    <p>Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images3.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/be.png')} alt="" title="" /></div>
-                                    <p>Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="msgSection custmItem">
-                            <div className="msgSec">
-                                <div className="msgFlag"><a><img src={require('../../assets/images/fr.png')} alt="" title="" /></a></div>
-                                <div className="msgTxt">
-                                    <p>Here is my message labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
-                                    Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images5.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/fi.png')} alt="" title="" /></div>
-                                    <p>Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="msgSection custmItem">
-                            <div className="msgSec">
-                                <div className="msgFlag"><a><img src={require('../../assets/images/fr.png')} alt="" title="" /></a></div>
-                                <div className="msgTxt">
-                                    <p>Here is my message labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
-                                    Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images4.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/fr.png')} alt="" title="" /></div>
-                                    <p><span>My name</span> - Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images4.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/fi.png')} alt="" title="" /></div>
-                                    <p>Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images3.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/be.png')} alt="" title="" /></div>
-                                    <p>Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="msgSection custmItem">
-                            <div className="msgSec">
-                                <div className="msgFlag"><a><img src={require('../../assets/images/fr.png')} alt="" title="" /></a></div>
-                                <div className="msgTxt">
-                                    <p>Here is my message labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
-                                    Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images5.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/fi.png')} alt="" title="" /></div>
-                                    <p>Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="msgSection custmItem">
-                            <div className="msgSec">
-                                <div className="msgFlag"><a><img src={require('../../assets/images/fr.png')} alt="" title="" /></a></div>
-                                <div className="msgTxt">
-                                    <p>Here is my message labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
-                                    Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images4.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/fr.png')} alt="" title="" /></div>
-                                    <p><span>My name</span> - Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images4.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/fi.png')} alt="" title="" /></div>
-                                    <p>Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images3.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/be.png')} alt="" title="" /></div>
-                                    <p>Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images4.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/fr.png')} alt="" title="" /></div>
-                                    <p><span>My name</span> - Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images4.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/fi.png')} alt="" title="" /></div>
-                                    <p>Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="custmItem">
-                            <div className="msgSec">
-                                <div className="msgSecImg"><img src={require('../../assets/images/images3.jpg')} alt="" title="" /></div>
-                                <div className="captionSec">
-                                    <div className="captionFlag"><img src={require('../../assets/images/be.png')} alt="" title="" /></div>
-                                    <p>Here is the image caption</p>
-                                </div>
-                            </div>
-                        </div> */}
 
                     </div>
 

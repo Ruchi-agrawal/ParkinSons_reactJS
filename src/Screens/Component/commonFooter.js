@@ -17,7 +17,7 @@ export const CommonFooter = () => {
                             </a>
                         </Col>
                         <Col lg="4" md="4" sm="12" className="footerMidCstm">
-                            <p>For internal Use Only&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All-NEUR-210012</p>
+                            <p>For internal use only&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All-NEUR-210012</p>
                         </Col>
                         <Col lg="4" md="3" sm="12" className="foterAbbvie">
                             <a><img src={require('../../assets/images/abbvie.jpg')} alt="" title="" /></a>

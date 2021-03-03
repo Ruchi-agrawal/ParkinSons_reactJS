@@ -49,7 +49,7 @@ class Index extends Component {
               </Col>
               <Col lg="5" md="4" sm="12" className="footerMid">
                 <p><a>{noOfPosts} posts</a></p>
-                <p className="allDuod"><span>ALL-NEUR-210008</span></p>
+                <p className="allDuod"><span>For internal use only&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALL-NEUR-210008</span></p>
               </Col>
               <Col lg="3" md="3" sm="12" className="foterAbbvie">
                 <a><img src={require('../../assets/images/abbvie.jpg')} alt="" title="" /></a>
@@ -63,8 +63,8 @@ class Index extends Component {
           <Container>
             <Row>
               <Col xs="12" className="footerMid">
-                <p><a>120 posts</a></p>
-                <a className="footerMsg"><img src={require('../../assets/images/msg.png')} alt="" title="" /></a>
+                <p><a>{noOfPosts} posts</a></p>
+                <a className="footerMsg"><img onClick={() => this.gotoMessage()} src={require('../../assets/images/msg.png')} alt="" title="" /></a>
               </Col>
               <Col xs="12" className="foterLft">
                 <Row>

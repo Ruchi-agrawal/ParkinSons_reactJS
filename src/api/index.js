@@ -50,7 +50,7 @@ export const getActivePosts = async (countryCode) => {
 
 
 export const saveUserId = async (data) => {
-    
+
     let response = await axios.post(API_URL.saveUserId, data, config)
     if (response) {
         const data = response.data.data
@@ -66,4 +66,24 @@ export const handleVisibility = async (UUID) => {
         const data = response.data.data
         return data
     }
+}
+
+export const checkUserStatus = async (userId) => {
+    let data = { "userId": userId }
+    let response = await axios.post(API_URL.checkUserStatus, data, config)
+    if (response) {
+        const data = response.data.data
+        return data
+    } 
+}
+
+export const checkAllUser= async (id)=>{
+    let data={
+        allUserID: id
+    }
+    let response = await axios.post(API_URL.checkAllUserStatus, data, config)
+    if (response) {
+        const data = response.data.data
+        return data
+    } 
 }
