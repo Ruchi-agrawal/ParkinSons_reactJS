@@ -8,13 +8,13 @@ function resizeGridItem(item) {
     item.style.gridRowEnd = "span " + rowSpan;
 }
 export function resizeAllGridItems(className) {
-    let allItems = document.getElementsByClassName(className);
+
+    setTimeout(function () {
+        let allItems = document.getElementsByClassName(className);
         for (let x = 0; x < allItems.length; x++) {
             resizeGridItem(allItems[x]);
         }
-    // setTimeout(function () {
-        
-    // }, 1000);
+    }, 1000);
 }
 function resizeInstance(instance) {
     let item = instance.elements[0];

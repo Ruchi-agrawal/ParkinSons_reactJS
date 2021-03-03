@@ -1156,11 +1156,19 @@ li.msgSection{
 .customMenu li.nav-item {
     margin-right: 12px;
 }
-.msgSecBg {
+/* .msgSecBg {
     background: linear-gradient( 
 90deg
  , rgba(46,46,46,1) 43%, rgba(65,63,64,1) 100%);
-}
+} */
+
+.msgSec {
+    background: linear-gradient( 
+    90deg
+     ,#2e2e2e 43%,#413f40);
+    }
+    /* .msgSec:nth-child(even) {
+    } */
 @media (max-width: 576px){
  .cntryRow .col-sm-5 {
     flex: 0 0 41.666667% !important;

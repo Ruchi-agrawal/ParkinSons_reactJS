@@ -32,11 +32,8 @@ class Index extends Component {
             let check = localStorage.getItem(res?.countryCode)
             if (!check) {
                 let countryName = countries[res?.countryCode].name
-                if (countryName == "Costa Rica") {
-                    countryName = "Croatia"
-                }
-                if (countryName == "Somalia") {
-                    countryName = "South Africa"
+                if (countryName == "Russian Federation") {
+                    countryName = "Russia"
                 }
                 res["countryName"] = countryName
                 resp.push(res)

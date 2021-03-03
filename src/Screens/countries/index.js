@@ -31,11 +31,8 @@ class Index extends Component {
                 count: code?.count,
                 code: code?._id
             }
-            if (countryData.name == "Costa Rica") {
-                countryData.name = "Croatia"
-            }
-            if (countryData.name == "Somalia") {
-                countryData.name = "South Africa"
+            if (countryData.name == "Russian Federation") {
+                countryData.name = "Russia"
             }
             countryList.push(countryData)
         })
@@ -51,7 +48,6 @@ class Index extends Component {
 
     handleVisibility = async (country, control) => {
         control = this.checkVisibility(country?.code)
-        let { countryList } = this.state;
         control = control ? "off" : "on"
         if (control == "on") {
             localStorage.removeItem(country?.code)

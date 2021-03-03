@@ -27,6 +27,7 @@ class Index extends Component {
   }
 
   onSelectFlag = (countryCode) => {
+    console.log("cjsahibc", countryCode)
     let { postData } = this.state
     postData["countryCode"] = countryCode
     this.setState({ postData })
@@ -40,7 +41,7 @@ class Index extends Component {
       if (messageLength <= 140) {
         postData[target.name] = target.value
         this.setState({ messageLength, postData })
-      }else{
+      } else {
         // $(".postform textarea").css("border", "rgb(251 82 82) 2px");
       }
     } else if (target?.name == "caption") {
@@ -48,7 +49,7 @@ class Index extends Component {
       if (captionLength <= 40) {
         postData[target.name] = target.value
         this.setState({ captionLength, postData })
-      }else{
+      } else {
         // $(".postform redBorder").css("border", "rgb(251 82 82) 2px");
       }
     } else {
@@ -139,60 +140,60 @@ class Index extends Component {
                   <div className="selectCntry">
                     <div><label><span>*</span>Select your country</label></div>
                     <ReactFlagsSelect
-                    searchPlaceholder="Search countries"
-                      countries={["AT", "AU", "BE", "BU", "CR", "CY", "CZ", "DE", "ES", "FI", "FR", "GE", "GR",
-                        "HU", "IR", "IT", "LA", "LT", "LU", "NL", "PL", "PT", "RO", "SK", "SI", "SE", "SW", "IC", "LI",
-                        "NO", "AL", "IS", "KU", "QA", "SA", "AE", "RU", "SO", "SW", "TU", "UK", "NZ", "JA", "TA", "TH",
-                        "CA", "US", "PR"]}
+                      searchPlaceholder="Search countries"
+                      countries={["AL", "AT", "AU", "BE", "BG", "CA", "HR", "CY", "CZ", "DK", "FI", "FR", "DE", "GR",
+                        "HU", "IS", "IE", "IL", "IT", "JP", "KW", "LV", "LI", "LT", "LU", "NL", "NO", "NZ", "PL", "PR", "PT",
+                        "QA", "RO", "RU", "SK", "SI", "SE", "SA", "ZA", "CH", "ES", "TR", "TW", "TH", "GB", "US", "AE",]}
+
                       customLabels={{
+                        "AL": "Albania",
                         "AT": "Austria",
                         "AU": "Australia",
                         "BE": "Belgium",
-                        "BU": "Bulgaria",
-                        "CR": "Croatia",
+                        "BG": "Bulgaria",
+                        "CA": "Canada",
+                        "HR": "Croatia",
                         "CY": "Cyprus",
                         "CZ": "Czech Republic",
-                        "DE": "Denmark",
+                        "DK": "Denmark",
                         "ES": "Estonia",
                         "FI": "Finland",
                         "FR": "France",
-                        "GE": "Germany",
+                        "DE": "Germany",
                         "GR": "Greece",
                         "HU": "Hungary",
-                        "IR": "Ireland",
+                        "IS": "Iceland",
+                        "IE": "Ireland",
+                        "IL": "Israel",
                         "IT": "Italy",
-                        "LA": "Latvia",
+                        "JP": "Japan",
+                        "KW": "Kuwait",
+                        "LV": "Latvia",
+                        "LI": "Liechtenstein",
                         "LT": "Lithuania",
                         "LU": "Luxembourg",
                         "NL": "Netherlands",
+                        "NO": "Norway",
+                        "NZ": "New Zealand",
                         "PL": "Poland",
+                        "PR": "Puerto Rico",
                         "PT": "Portugal",
+                        "QA": "Qatar",
                         "RO": "Romania",
+                        "RU": "Russia",
                         "SK": "Slovakia",
                         "SI": "Slovenia",
-                        "SP": "Spain",
                         "SE": "Sweden",
-                        "IC": "Iceland",
-                        "LI": "Liechtenstein",
-                        "NO": "Norway",
-                        "AL": "Albania",
-                        "IS": "Israel",
-                        "KU": "Kuwait",
-                        "QA": "Qatar",
+                        "ZA": "South Africa",
+                        "CH": "Switzerland",
+                        "ES": "Spain",
                         "SA": "Saudi Arabia",
-                        "AE": "United Arab Emirates",
-                        "RU": "Russia",
-                        "SO": "South Africa",
-                        "SW": "Switzerland",
-                        "TU": "Turkey",
-                        "UK": "United Kingdom",
-                        "NZ": "New Zealand",
-                        "JA": "Japan",
-                        "TA": "Taiwan",
+                        "TR": "Turkey",
+                        "TW": "Taiwan",
                         "TH": "Thailand",
-                        "CA": "Canada",
+                        "GB": "United Kingdom",
                         "US": "United States",
-                        "PR": "Puerto Rico"
+                        "AE": "United Arab Emirates",
                       }}
                       placeholder="Select .."
                       onSelect={this.onSelectFlag}
