@@ -14,7 +14,7 @@ export function resizeAllGridItems(className) {
         for (let x = 0; x < allItems.length; x++) {
             resizeGridItem(allItems[x]);
         }
-    }, 1000);
+    }, 2000);
 }
 function resizeInstance(instance) {
     let item = instance.elements[0];

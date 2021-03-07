@@ -42,7 +42,11 @@ class Index extends Component {
         postData[target.name] = target.value
         this.setState({ messageLength, postData })
       } else {
-        // $(".postform textarea").css("border", "rgb(251 82 82) 2px");
+        const value = target.value.substring(0, 140)
+        messageLength=value.length
+        postData[target.name] = value
+        this.setState({ postData, messageLength})
+
       }
     } else if (target?.name == "caption") {
       captionLength = target?.value?.length
@@ -50,7 +54,10 @@ class Index extends Component {
         postData[target.name] = target.value
         this.setState({ captionLength, postData })
       } else {
-        // $(".postform redBorder").css("border", "rgb(251 82 82) 2px");
+        const value = target.value.substring(0, 40)
+        captionLength=value.length
+        postData[target.name] = value
+        this.setState({ postData, captionLength})
       }
     } else {
       postData[target.name] = target.value

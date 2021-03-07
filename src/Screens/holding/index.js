@@ -23,7 +23,7 @@ class Index extends Component {
         return (
             <div>
                 <div className="holdingSec">
-                    <div><img src={require('../../assets/images/WebLogoPng.png')} alt="Parkinson" title="Parkinson" /></div>
+                    <div><img src={require('../../assets/images/logo03March.png')} alt="Parkinson" title="Parkinson" /></div>
                     <div className="shareCommet">
                         <p>Share your commitment to care for
                      people with Parkinson’s disease </p>

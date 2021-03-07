@@ -185,7 +185,7 @@ p.allDuod{
 .homeCntnt{
     min-height: 580px;
     background: #383637;
-    padding-bottom: 72px;
+    padding-bottom: 66px;
 }
 .webHeader{
     background-color: #d91b5c;
@@ -352,14 +352,14 @@ p.allDuod{
     align-items: center;
 }
 .shrBrows a {
-    width: 73px;
+    /* width: 73px;
     height: 36px;
     background: #333233;
+    border: 1px solid #424242; */
     display: inline-block;
-    border: 1px solid #424242;
 }
 .shrBrows img {
-    width: 58px;
+    width: 48px;
     cursor: pointer;
 }
 .brwSize {
@@ -1101,11 +1101,11 @@ li.msgSection{
         padding-bottom: 250px !important;
     }
   }
-  @media screen and (min-width: 768px) and (max-width: 899px){
+  /* @media screen and (min-width: 768px) and (max-width: 899px){
     .cstmGrid{
         margin-top: 106px;
     }
-  }
+  } */
   .msgTxt{
     position: relative;
   }
@@ -1131,7 +1131,7 @@ li.msgSection{
     font-size: 12px;
     font-weight: 400;
     padding: 0px 47px;
-    margin-bottom: 0px;
+    padding-bottom: 12px !important;
     display: block;
 }
 .cntryBrdr{
@@ -1149,9 +1149,6 @@ li.msgSection{
     bottom: 0;
     left: 0;
     right: 0;
-}
-.msgSec {
-    padding-bottom: 12px !important;
 }
 .customMenu li.nav-item {
     margin-right: 12px;
@@ -1222,10 +1219,11 @@ button.MenuToggleCstm{
     width: 33px;
  }
 .custmItem:nth-child(2) .msgFlag{
-    padding-left: 21px !important;
+    padding-left: 24px !important;
+    padding-top: 20px;
  }
 .custmItem:nth-child(2) .msgTxt p::before{
-    left: 32px !important;
+    left: 36px !important;
  }
 }
 @media (min-width: 1566px){
@@ -1233,7 +1231,49 @@ button.MenuToggleCstm{
         padding-bottom: 300px !important;
     }
 }
-.shrBrows a img {
-    width: auto !important;
-    height: 36px !important;
+.shrBrows a img{
+    width: 35px !important;
+    height: auto !important;
+    vertical-align: unset;
+}
+@media screen and (min-width: 1049px) and (max-width: 1349px){
+    .cstmGrid {
+        grid-template-columns: repeat(auto-fill, minmax(350px,1fr)) !important;
     }
+}
+@media screen and (min-width: 900px) and (max-width: 1048px){
+    .cstmGrid {
+        grid-template-columns: repeat(auto-fill, minmax(300px,1fr)) !important;
+    }
+}
+#cover-spin {
+    position:fixed;
+    width:100%;
+    left:0;right:0;top:0;bottom:0;
+    background-color: rgba(255,255,255,0.7);
+    z-index:9999;
+    display:none;
+}
+
+.circularProgressMessage {
+    position: fixed; 
+    padding-left: 49%;
+    padding-top: 22% !important;
+    height: 100%; 
+    width: 100%; 
+    top:0; 
+    left: 0; 
+    background-color: rgb(184, 181, 181);
+    opacity: 0.8;
+    z-index:9999;padding-top: 10px;
+  }
+
+  @media screen and (max-width: 767px){
+    .circularProgressMessage {
+        padding-top: 49% !important;
+      }
+  }
+  .errLogin{
+    color: #F6ECEA !important;
+    padding-bottom: 2%;
+  }

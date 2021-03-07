@@ -8,7 +8,6 @@ import { countries } from 'country-data';
 import { sortFunction } from "Screens/Component/sort"
 import $ from "jquery"
 class Index extends Component {
-
     constructor(props) {
         super(props);
         this.state = {

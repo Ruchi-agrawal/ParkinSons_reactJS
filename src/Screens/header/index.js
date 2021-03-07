@@ -18,11 +18,11 @@ class Index extends Component {
     this.setState({ isOpen: !(this.state.isOpen) })
   }
 
-  gotoMessages=()=>{
+  gotoMessages = () => {
     this.props.history.push("/messages")
   }
   render() {
-    if(!localStorage.getItem("userEmail") || !localStorage.getItem("userId")){
+    if (!localStorage.getItem("userEmail") || !localStorage.getItem("userId")) {
       this.props.history.push("/login")
     }
     return (
@@ -31,8 +31,8 @@ class Index extends Component {
           <Container>
             <Row>
               <Col lg="4" md="5" sm="12" xs="12">
-                <div className="webLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/logo2.jpg')} alt="Parkinson" title="Parkinson" /></div>
-                <div className="mobLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/WebLogoPng.png')} alt="Parkinson" title="Parkinson" /></div>
+                <div className="webLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/weblogo12.png')} alt="Parkinson" title="Parkinson" /></div>
+                <div className="mobLogo"><img onClick={this.gotoMessages} src={require('../../assets/images/logo03March.png')} alt="Parkinson" title="Parkinson" /></div>
               </Col>
               <Col lg="8" md="7" sm="12" xs="12" className="setMob">
                 <div className="customMenu">

@@ -5,6 +5,7 @@ import { fileUpload, getActivePosts, checkAllUser } from "api/index"
 import { countries } from 'country-data';
 import { baseUrl } from 'apiUrl';
 import moment from "moment"
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { sortByDate } from "component/sort"
 import { resizeAllGridItems } from "Screens/Component/manageGridItem"
 class Index extends Component {
@@ -14,6 +15,7 @@ class Index extends Component {
             postList: [],
             postlist1: [],
             fileUrl: "",
+            nodata: true
         };
     }
 
@@ -80,26 +82,33 @@ class Index extends Component {
             resizeAllGridItems("custmItem")
             this.setState({ postList, postlist1 })
         }
+        setTimeout(()=>{
+            this.setState({nodata: false})
+        }, 2200)
     }
 
 
     render() {
-        let { postList, fileUrl, postlist1 } = this.state
+        let { postList, fileUrl, postlist1, nodata } = this.state
         return (
             <div>
                 {/* Common Header  */}
                 <Header />
+
                 {/* End of Common Header  */}
 
                 {/* start of mid section */}
                 <div className="homeCntnt msgsContent">
+                    {nodata && <div className="circularProgressMessage" >
+                        <CircularProgress className="w-1 mr-1 mb-2 MuiCircularProgress-root" color="secondary" thickness={4} />
+                    </div>}
                     <div className="wrapperCstm cstmGrid">
 
                         {/* <div className="custmItem">
                           <div className="msgSec" style={{height:'132px', width:'452px'}}></div>
                         </div>  */}
 
-                        {postlist1 && postlist1?.imageUrl && postlist1?.message ?
+                        {postlist1 && postlist1?.imageUrl ?
                             <div className="custmItem">
                                 <div className="msgSec msgBlankSpc msgSecBg">
                                     <div className="msgSecImg">
@@ -118,14 +127,14 @@ class Index extends Component {
                                 </div>
                             </div>
                             : postlist1 && postlist1?.message ?
-                            <div className="msgSection custmItem">
-                                <div className="msgSec msgBlankSpc msgBlankTxt">
-                                    <div className="msgFlag"><a><img src={require(`../../assets/countries/${postlist1?.countryName ?? "Default"}-Flag-icon.png`)} alt="" title="" /> </a></div>
-                                    <div className="msgTxt"><p>{postlist1?.message}</p></div>
-                                    <div><label className="myName">{postlist1?.userName}</label></div>
-                                </div>
-                            </div> :
-                            <></>
+                                <div className="msgSection custmItem">
+                                    <div className="msgSec msgBlankSpc msgBlankTxt">
+                                        <div className="msgFlag"><a><img src={require(`../../assets/countries/${postlist1?.countryName ?? "Default"}-Flag-icon.png`)} alt="" title="" /> </a></div>
+                                        <div className="msgTxt"><p>{postlist1?.message}</p></div>
+                                        <div><label className="myName">{postlist1?.userName}</label></div>
+                                    </div>
+                                </div> :
+                                <></>
                         }
 
                         {postList && postList.length > 0 && postList.map(posts => (

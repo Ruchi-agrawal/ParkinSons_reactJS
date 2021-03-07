@@ -3,6 +3,7 @@ import { FormGroup, Label, Input, Button } from 'reactstrap';
 import md5 from 'md5-hash';
 import { saveUserId } from "api/index"
 import { CommonFooter } from "Screens/Component/commonFooter"
+import { validateEmail, validDomain } from "Screens/Component/validateEmail"
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -12,22 +13,32 @@ class Index extends Component {
       loginData: {}
     };
   }
-  handleChange = (event) => {
+  handleChange = (event, typo) => {
     let { loginData } = this.state
+    // if (typo == "email") {
+    //   let validEmail = validateEmail(event.target.value)
+    //   if (validEmail) {
+    //     loginData[typo] = event.target.value;
+    //   }else{
+    //     this.setState({ reqEmail: "Invalid Email-address." })
+    //   }
+    // } 
     loginData[event.target.name] = event.target.value;
-
-    this.setState({ loginData })
+    this.setState({ loginData, reqEmail: false })
   }
 
   handleSubmit = async () => {
     let { loginData } = this.state
-    let {email , password}=loginData
+    let { email, password } = loginData
+    let isValidDomain = validDomain(email)
     if (!email || email == "") {
       this.setState({ reqEmail: "E-mail is blank!" })
     } else if (!password || password == "") {
       this.setState({ reqEmail: "Password is blank!" })
     } else if (password !== "#8rrw456ZX") {
-      this.setState({ reqEmail: "Incorrect Password" })
+      this.setState({ reqEmail: "The password or email address has not been recognised" })
+    } else if (!isValidDomain) {
+      this.setState({ reqEmail: "Entered email domain is not accepted." })
     } else {
       const UUID = md5(md5(email))
       let data = {
@@ -56,18 +67,18 @@ class Index extends Component {
 
           <div className="loginIner">
 
-            <div><img src={require('../../assets/images/WebLogoPng.png')} alt="Parkinson" title="Parkinson" /></div>
+            <div><img src={require('../../assets/images/logo03March.png')} alt="Parkinson" title="Parkinson" /></div>
 
             <div className="loginForm">
               <FormGroup>
-                <Label for="useremail">Enter your work email adress</Label>
-                <Input onChange={this.handleChange} type="email" name="email" id="useremail" />
+                <Label for="useremail">Enter your work email address</Label>
+                <Input onChange={(e) => this.handleChange(e, "email")} type="email" name="email" id="useremail" />
               </FormGroup>
               <FormGroup>
                 <Label for="useremail">Password</Label>
-                <Input onChange={this.handleChange} type="password" name="password" id="userpassword" />
+                <Input onChange={(e) => this.handleChange(e, "password")} type="password" name="password" id="userpassword" />
               </FormGroup>
-              {reqEmail && <div style={{ color: "#F6ECEA" }}><b>{reqEmail}</b></div>}
+              {reqEmail && <div className="errLogin" ><b>{reqEmail}</b></div>}
               <div className="loginFormBtn" onClick={this.handleSubmit}><Button color="primary">Enter</Button></div>
             </div>
 
