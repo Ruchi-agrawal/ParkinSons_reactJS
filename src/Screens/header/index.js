@@ -21,6 +21,12 @@ class Index extends Component {
   gotoMessages = () => {
     this.props.history.push("/messages")
   }
+
+  logoutUser=()=>{
+    localStorage.removeItem("userEmail")
+    localStorage.removeItem("userId")
+    this.props.history.push("/login")
+  }
   render() {
     if (!localStorage.getItem("userEmail") || !localStorage.getItem("userId")) {
       this.props.history.push("/login")
@@ -43,6 +49,7 @@ class Index extends Component {
                         <NavItem><NavLink href="/messages"><img src={require('../../assets/images/homeicon.png')} alt="" title="" /></NavLink> </NavItem>
                         <NavItem><NavLink href="/countries">Countries</NavLink></NavItem>
                         <NavItem><NavLink href="/about">About</NavLink></NavItem>
+                        {/* <NavItem><NavLink onClick={this.logoutUser}>Logout</NavLink></NavItem> */}
                       </Nav>
                     </Collapse>
                   </Navbar>

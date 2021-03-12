@@ -339,6 +339,17 @@ p.allDuod{
     margin-bottom: 0px;
     font-weight: 400;
 }
+.ErrorMssg{
+    color: #cf4444;
+    /* margin-left: 25%; */
+}
+.exeedFileSize p {
+    color: #cf4444;
+    font-size: 13px;
+    line-height: 18px;
+    margin-bottom: 0px;
+    font-weight: 400;
+}
 .brwsFindUpr {
     display: flex;
     align-items: center;
@@ -467,13 +478,14 @@ p.allDuod{
 .termUses p {
     color: #ededed;
     font-size: 14px;
-    line-height: 22px;
+    line-height: 25px;
     list-style-type: none;
     font-weight: 300;
 }
 .termUses label {
     color: #ededed;
     font-size: 16px;
+    font-weight: 600;
     line-height: 28px;
     margin-bottom: 0px;
 }
@@ -484,12 +496,13 @@ p.allDuod{
     color: #ededed;
     font-size: 16px;
     line-height: 28px;
-    margin-bottom: 16px;
+    font-weight: 600;
+    /* margin-bottom: 16px; */
 }
 .aboutPolicy p {
     color: #ededed;
     font-size: 15px;
-    line-height: 22px;
+    line-height: 25px;
     list-style-type: none;
     font-weight: 300;
 }
@@ -516,6 +529,11 @@ p.allDuod{
 }
 .countryLeft{
     width: 288px;
+}
+.postLeft{
+    color: #ededed;
+    font-weight: 700;
+    font-size: 16px;
 }
 .cntryFlag span {
     color: #ededed;
@@ -1277,3 +1295,4 @@ button.MenuToggleCstm{
     color: #F6ECEA !important;
     padding-bottom: 2%;
   }
+  

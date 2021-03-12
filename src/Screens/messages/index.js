@@ -25,6 +25,9 @@ class Index extends Component {
         this.setState({ fileUrl })
         this.getCountryPost()
     }
+    componentDidUpdate(){
+        resizeAllGridItems("custmItem")
+    }
 
     checkUserAndPost = async (response) => {
         let UserId = []
@@ -79,17 +82,20 @@ class Index extends Component {
             resp && resp.length > 0 && resp.map((res, i) => {
                 i == 0 ? postlist1 = res : postList.push(res)
             })
-            resizeAllGridItems("custmItem")
+                resizeAllGridItems("custmItem")
             this.setState({ postList, postlist1 })
         }
-        setTimeout(()=>{
-            this.setState({nodata: false})
+        setTimeout(() => {
+            this.setState({ nodata: false })
         }, 2200)
     }
 
 
     render() {
         let { postList, fileUrl, postlist1, nodata } = this.state
+        setInterval(() => {
+            this.getCountryPost()
+        }, 600*1000);
         return (
             <div>
                 {/* Common Header  */}

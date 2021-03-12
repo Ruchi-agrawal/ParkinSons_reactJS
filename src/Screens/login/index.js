@@ -85,7 +85,7 @@ class Index extends Component {
           </div>
 
         </div>
-        <CommonFooter />
+        <CommonFooter useFor="login" />
 
       </div>
     );

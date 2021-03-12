@@ -94,12 +94,9 @@ class Index extends Component {
                                 {/* End of Common space */}
 
                                 <div className="aboutLeft countryLeft">
-                                    <div><label>Countries</label></div>
+                                    <div><label><b>Countries</b></label></div>
                                     <div>
-                                        <p>Here you can see all the countries taking part in this event and how many
-                                        messages they have posted. You can also select which countries you would
-                                        like to the front page of this site by using the ‘eye’ symbol.
-                                        </p>
+                                        <p>This page lists those countries with posts to the site and allows you to filter the countries you wish to view posts on the home page from by selecting or deselecting the 'eye' symbol to the right of that country. If you are unable to find a specific affiliate in the 'Countries' section it may be that no posts have yet been made by users from that country.  </p>
                                     </div>
                                 </div>
 

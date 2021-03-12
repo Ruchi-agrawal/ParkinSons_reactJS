@@ -12,7 +12,7 @@ const config = {
     }
 };
 export const fileUpload = async (e) => {
-    var fileName = e.target.files[0];
+    var fileName = e
     const formData = new FormData();
     formData.append('postImage', fileName);
     let response = await axios.post(API_URL.fileUpload, formData, configfile)
