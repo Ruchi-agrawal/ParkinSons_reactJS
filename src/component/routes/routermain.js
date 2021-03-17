@@ -18,6 +18,7 @@ class Routermain extends Component {
                         <Route exact path="/countries" render={(props) => <Countries {...props} />} />
                         <Route exact path="/add_posts" render={(props) => <Post {...props} />} />
                         <Route exact path="/messages" render={(props) => <Messages {...props} />} />
+                        <Route path="*" render={(props) => <Login {...props} />} />
                     </Switch>
                 </div>
             </Router>

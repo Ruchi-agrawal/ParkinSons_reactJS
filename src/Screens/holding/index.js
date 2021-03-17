@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
-import {CommonFooter} from "Screens/Component/commonFooter"
-
+import { CommonFooter } from "Screens/Component/commonFooter"
+import { IOSPopup } from "Screens/Component/iOSpopup"
 class Index extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+           
+        };
+    }
+
+    gotoLogin=()=>{
+        this.props.history.push("/login")
+    }
+
     render() {
-        var countDownDate = new Date("apr 7, 2021 00:00:01").getTime()
+        let self = this
+        var countDownDate = new Date("april 7, 2021 00:00:01").getTime()
         var setCountdown = setInterval(function () {
             var todayDate = new Date().getTime()
             var distanceDate = countDownDate - todayDate
@@ -17,7 +29,7 @@ class Index extends Component {
 
             if (distanceDate < 0) {
                 clearInterval(setCountdown);
-                document.getElementById("countdown").innerHTML = "Parkinsons Realeased";
+                self.gotoLogin()
             }
         }, 1000)
         return (
@@ -38,10 +50,10 @@ class Index extends Component {
                     </div>
                 </div>
 
-                {/* Common Footer */}
-                <CommonFooter/>
-                {/* End of Common Footer */}
 
+                {/* Common Footer */}
+                <CommonFooter />
+                {/* End of Common Footer */}
             </div>
         );
     }

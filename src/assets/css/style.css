@@ -678,10 +678,11 @@ a.shortArow img{
 .mobileFtr {
     display: none;
 }
-@media (max-width: 568px){
+@media (max-width: 767px){
     .msgBoard, .aboutLeft {
-      margin-top: 42px !important;
-      margin-bottom: 38px !important;
+        margin-top: 42px !important;
+        margin-bottom: 38px !important;
+        margin-left: 0px !important;
     }
     .customMenu li.nav-item {
       margin-right: 0px !important;
@@ -732,6 +733,9 @@ a.shortArow img{
     }
     .customMenu a.nav-link {
         padding: 12px 0px;
+    }
+    .msgBoardIner {
+        width: 100% !important;
     }
   }
 
@@ -862,6 +866,9 @@ a.footerMsg{
 .captionSec p {
     color: #ededed;
     font-size: 14px;
+    white-space: break-spaces;
+    /* word-break: break-all; */
+    overflow-wrap: break-word;
 }
 .captionFlag img{
     width: 30px;
@@ -914,6 +921,9 @@ ul.wrapperCstm li {
     font-weight: 400;
     padding: 25px 47px 12px;
     line-height: 30px;
+    white-space: break-spaces;
+    /* word-break: break-all; */
+    overflow-wrap: break-word;
 }
 li.msgSection{
     padding: 14px 15px;
@@ -1119,6 +1129,11 @@ li.msgSection{
         padding-bottom: 250px !important;
     }
   }
+  @media (max-width: 899px) and (min-width:768px){
+    .msgBlankSpc{
+        padding-top: 100px !important;
+    }
+}
   /* @media screen and (min-width: 768px) and (max-width: 899px){
     .cstmGrid{
         margin-top: 106px;
@@ -1132,6 +1147,7 @@ li.msgSection{
   }
   .footerMidCstm{
     text-align: center;
+    padding-right: 10px !important;
   }
   .footerMidCstm p{
     color: #ffffff;
@@ -1151,6 +1167,9 @@ li.msgSection{
     padding: 0px 47px;
     padding-bottom: 12px !important;
     display: block;
+    white-space: break-spaces;
+    /* word-break: break-all; */
+    overflow-wrap: break-word;
 }
 .cntryBrdr{
     position: relative;
@@ -1296,3 +1315,45 @@ button.MenuToggleCstm{
     padding-bottom: 2%;
   }
   
+
+  /* Web app CSS for IOS popup */
+  .webApp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.webApp p {
+   margin: 0px;
+}
+.webApp img {
+   vertical-align: bottom;
+}
+.webApp {
+    background: #f2f8ff;
+    padding: 14px 0px;
+    position: relative;
+}
+.webApp div img {
+    margin-right: 10px;
+}
+.webApp p img {
+   margin: 0px 7px;
+}
+.webApp::after{
+    width: 0px;
+    height: 0px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #f2f8ff;
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -19px;
+    margin: 0 auto;
+}
+.webAppUpr {
+    position: fixed;
+    width: 100%;
+    bottom: 4%;
+}

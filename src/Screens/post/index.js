@@ -79,7 +79,6 @@ class Index extends Component {
       if (invalidFileSize) {
         this.setState({ exeedFileSize: "File size limit exeeded." })
       } else {
-        this.setState({ submitPending: true })
         let img = new Image()
         img.src = window.URL.createObjectURL(file)
         img.onload = async () => {
@@ -90,8 +89,8 @@ class Index extends Component {
           this.setState({ filePreview: URL.createObjectURL(file), isFileSelected: file?.name })
           let { postData } = this.state
           let newFile = !compressedFile ? file : compressedFile
+          this.setState({ submitPending: true })
           let response = await fileUpload(newFile)
-          console.log("response", response)
           if (response) {
             postData["imageUrl"] = response?.filename
             this.setState({ postData, submitPending: false })

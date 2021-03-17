@@ -7,8 +7,48 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
   <meta name="theme-color" content="#000000" />
+
   <meta name="description" content="Website created using create-react-app" />
   <link rel="apple-touch-icon" href="favicon.ico" />
+
+  <!-- Home screen Icons for iOS -->
+  <link rel="apple-touch-icon" href="touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="iOS/icon152_iOS.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="iOS/icon180_iOS.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="iOS/icon167_iOS.png">
+
+  <!-- place this in a head section -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link href="splashscreens/iphone5_splash.png"
+    media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="splashscreens/iphone6_splash.png"
+    media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="splashscreens/iphoneplus_splash.png"
+    media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"
+    rel="apple-touch-startup-image" />
+  <link href="splashscreens/iphonex_splash.png"
+    media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+    rel="apple-touch-startup-image" />
+  <link href="splashscreens/iphonexr_splash.png"
+    media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="splashscreens/iphonexsmax_splash.png"
+    media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
+    rel="apple-touch-startup-image" />
+  <link href="splashscreens/ipad_splash.png"
+    media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="splashscreens/ipadpro1_splash.png"
+    media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="splashscreens/ipadpro3_splash.png"
+    media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+  <link href="splashscreens/ipadpro2_splash.png"
+    media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
 
   <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -84,6 +124,25 @@
       imagesLoaded(allItems[x], resizeInstance);
     }
   </script>
+
+  <!-- <script>
+    var deferredPrompt; window.addEventListener('beforeinstallprompt', function (e) { deferredPrompt = e; showAddToHomeScreen(); });
+    function showAddToHomeScreen() { var a2hsBtn = document.querySelector(".ad2hs-prompt"); a2hsBtn.style.display = "block"; 
+    a2hsBtn.addEventListener("click", addToHomeScreen); }
+    function addToHomeScreen() {
+      var a2hsBtn = document.querySelector(".ad2hs-prompt"); // hide our user interface that shows our A2HS button 
+      a2hsBtn.style.display = 'none'; // Show the prompt 
+      deferredPrompt.prompt(); // Wait for the user to respond to the prompt 
+      deferredPrompt.userChoice.then(function (choiceResult) {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        deferredPrompt = null;
+      });
+    }
+  </script> -->
 
 </body>
 

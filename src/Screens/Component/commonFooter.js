@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from 'reactstrap';
+import { IOSPopup } from "Screens/Component/iOSpopup"
+
+const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+}
+// Detects if device is in standalone mode
+const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
 export const CommonFooter = (props) => {
+    const [showInstallMessage, setMessage] = useState(null)
+    useEffect(() => {
+        // Checks if should display install popup notification:
+        if (isIos() && !isInStandaloneMode()) {
+            setMessage(true)
+        }
+        setTimeout(()=>{
+            setMessage(false)
+        }, 8000)
+    }, [])
     return (
         <div className="countFooter">
+            
             <div className="webFooter websiteFtr">
                 <Container>
                     <Row>
@@ -17,7 +36,7 @@ export const CommonFooter = (props) => {
                             </a>
                         </Col>
                         <Col lg="4" md="4" sm="12" className="footerMidCstm">
-                            <p>For internal use only&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All-NEUR-{props?.useFor=="login" ? "210008" :"210012"}</p>
+                            <p>For internal use only&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{props?.useFor == "login" ? "All-NEUR-210008" : "All-NEUR-210012"}</p>
                         </Col>
                         <Col lg="4" md="3" sm="12" className="foterAbbvie">
                             <a><img src={require('../../assets/images/abbvie.jpg')} alt="" title="" /></a>
@@ -25,7 +44,9 @@ export const CommonFooter = (props) => {
                         </Col>
                     </Row>
                 </Container>
+                {showInstallMessage && <IOSPopup />}
             </div>
+        
         </div>
     )
 }
